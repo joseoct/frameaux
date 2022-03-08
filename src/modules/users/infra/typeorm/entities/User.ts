@@ -4,11 +4,15 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  JoinColumn,
+  ManyToOne,
 } from 'typeorm';
 
 import uploadConfig from '@config/upload';
 
 import { Exclude, Expose } from 'class-transformer';
+
+import Role from '@modules/roles/infra/typeorm/entities/Role';
 
 @Entity('users')
 class User {
@@ -28,6 +32,13 @@ class User {
   @Column()
   avatar: string;
 
+  @Column()
+  role_id: string;
+
+  @ManyToOne(() => Role, role => role.users, { eager: true })
+  @JoinColumn({ name: 'role_id' })
+  role: Role;
+
   @CreateDateColumn()
   created_at: Date;
 
@@ -43,8 +54,8 @@ class User {
     switch (uploadConfig.driver) {
       case 'disk':
         return `${process.env.APP_API_URL}/files/${this.avatar}`;
-      case 's3':
-        return `https://s3.amazonaws.com/${uploadConfig.config.aws.bucket}/${this.avatar}`;
+      // case 's3':
+      // return `https://s3.amazonaws.com/${uploadConfig.config.aws.bucket}/${this.avatar}`;
       default:
         return null;
     }
