@@ -2,7 +2,6 @@ import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
 
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
-import ensureRole from '@modules/users/infra/http/middlewares/ensureRole';
 
 import ProfileController from '../controllers/ProfileController';
 
@@ -10,7 +9,6 @@ const profileRouter = Router();
 const profileController = new ProfileController();
 
 profileRouter.use(ensureAuthenticated);
-profileRouter.use(ensureRole(['administrator']));
 
 profileRouter.get('/', profileController.show);
 profileRouter.put(
