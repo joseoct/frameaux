@@ -11,9 +11,9 @@ export default function ensureAdmin(roles: Array<string>) {
     res: Response,
     next: NextFunction,
   ): Promise<void> => {
-    const showProfile = container.resolve(ShowProfileService);
-
     const user_id = req.user.id;
+
+    const showProfile = container.resolve(ShowProfileService);
 
     const user = await showProfile.execute({ user_id });
 
@@ -21,6 +21,6 @@ export default function ensureAdmin(roles: Array<string>) {
       throw new AppError('Parece que você está indo longe demais...', 401);
     }
 
-    if (roles) next();
+    next();
   };
 }
