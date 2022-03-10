@@ -6,7 +6,8 @@
   "scripts": {
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
     "dev:server": "ts-node-dev --poll -r tsconfig-paths/register --inspect --no-notify --transpileOnly --ignore-watch node_modules src/shared/infra/http/server.ts",
-    "typeorm": "ts-node-dev --poll -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
+    "typeorm": "ts-node-dev --poll -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "pattern": "bash ./node_modules/.bin/pattern.sh ./src/modules $2"
   },
   "dependencies": {
     "@types/cors": "^2.8.6",
@@ -37,6 +38,7 @@
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-typescript": "^7.10.4",
     "@types/bcryptjs": "^2.4.2",
+    "@types/jsonwebtoken": "^8.5.8",
     "@typescript-eslint/eslint-plugin": "^2.27.0",
     "@typescript-eslint/parser": "^2.27.0",
     "babel-plugin-module-resolver": "^4.0.0",
