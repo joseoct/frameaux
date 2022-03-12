@@ -5,11 +5,15 @@
   "license": "MIT",
   "scripts": {
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
-    "dev:server": "ts-node-dev --poll -r tsconfig-paths/register --inspect --no-notify --transpileOnly --ignore-watch node_modules src/shared/infra/http/server.ts",
+    "dev:server": "ts-node-dev -r tsconfig-paths/register --inspect --exit-child --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
     "typeorm": "ts-node-dev --poll -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "pattern": "bash ./node_modules/.bin/pattern.sh ./src/modules $2"
   },
+  "prisma": {
+    "schema": "./src/shared/infra/prisma/schema.prisma"
+  },
   "dependencies": {
+    "@prisma/client": "3.10.0",
     "@types/cors": "^2.8.6",
     "@types/express": "^4.17.6",
     "@types/multer": "^1.4.3",
@@ -24,6 +28,7 @@
     "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.2",
     "pg": "^8.0.3",
+    "prisma": "^3.10.0",
     "reflect-metadata": "^0.1.13",
     "tsyringe": "^4.3.0",
     "typeorm": "^0.2.24",
