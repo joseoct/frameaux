@@ -1,6 +1,6 @@
 import { injectable, inject } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
-import Tecnology from '@modules/tecnologies/infra/typeorm/entities/Tecnology';
+import { Tecnology } from '@prisma/client';
 import ITecnologiesRepository from '../repositories/ITecnologiesRepository';
 
 interface IRequest {
