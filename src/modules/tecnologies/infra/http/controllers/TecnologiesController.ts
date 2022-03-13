@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import { classToClass } from 'class-transformer';
 
 import CreateTecnologyService from '@modules/tecnologies/services/CreateTecnologyService';
 import UpdateTecnologyService from '@modules/tecnologies/services/UpdateTecnologyService';
@@ -14,7 +13,7 @@ export default class TecnologiesController {
 
       const tecnology = await createTecnology.execute({ name });
 
-      return response.json(classToClass(tecnology));
+      return response.json(tecnology);
     } catch (err) {
       return response.status(400).json({ error: err.message });
     }
@@ -28,7 +27,7 @@ export default class TecnologiesController {
 
       const tecnology = await updateTecnology.execute({ tecnology_id, name });
 
-      return response.json(classToClass(tecnology));
+      return response.json(tecnology);
     } catch (err) {
       return response.status(400).json({ error: err.message });
     }
