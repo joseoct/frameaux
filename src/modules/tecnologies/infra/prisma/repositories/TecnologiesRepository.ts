@@ -2,11 +2,15 @@ import ICreateTecnologyDTO from '@modules/tecnologies/dtos/ICreateTecnologyDTO';
 import ITecnologiesRepository from '@modules/tecnologies/repositories/ITecnologiesRepository';
 import { PrismaClient, Tecnology } from '@prisma/client';
 
-const prisma = new PrismaClient();
-
 class TecnologiesRepository implements ITecnologiesRepository {
+  private prisma: PrismaClient;
+
+  constructor() {
+    this.prisma = new PrismaClient();
+  }
+
   public async create(tecnologyData: ICreateTecnologyDTO): Promise<Tecnology> {
-    const tecnology = await prisma.tecnology.create({
+    const tecnology = await this.prisma.tecnology.create({
       data: tecnologyData,
     });
 
@@ -14,7 +18,7 @@ class TecnologiesRepository implements ITecnologiesRepository {
   }
 
   public async update(tecnologyData: Tecnology): Promise<Tecnology> {
-    const tecnology = await prisma.tecnology.update({
+    const tecnology = await this.prisma.tecnology.update({
       where: {
         id: tecnologyData.id,
       },
@@ -25,7 +29,7 @@ class TecnologiesRepository implements ITecnologiesRepository {
   }
 
   public async findById(id: string): Promise<Tecnology> {
-    const tecnology = await prisma.tecnology.findUnique({
+    const tecnology = await this.prisma.tecnology.findUnique({
       where: {
         id,
       },
@@ -35,7 +39,7 @@ class TecnologiesRepository implements ITecnologiesRepository {
   }
 
   public async findByName(name: string): Promise<Tecnology> {
-    const tecnology = await prisma.tecnology.findUnique({
+    const tecnology = await this.prisma.tecnology.findUnique({
       where: {
         name,
       },
