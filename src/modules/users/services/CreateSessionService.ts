@@ -65,6 +65,8 @@ class CreateSessionService {
       expiresIn,
     });
 
+    delete user.password;
+
     return {
       user,
       token,

@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
-import User from '@modules/users/infra/typeorm/entities/User';
+import { User } from '@prisma/client';
 
 import IUsersRepository from '../repositories/IUsersRepository';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
@@ -43,6 +43,8 @@ class CreateUserService {
       password: hashedPassword,
       role_id,
     });
+
+    delete user.password;
 
     return user;
   }
