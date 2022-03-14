@@ -3,7 +3,7 @@ import { inject, injectable } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 
-import User from '@modules/users/infra/typeorm/entities/User';
+import { User } from '@prisma/client';
 import authConfig from '@config/auth';
 import IUsersRepository from '../repositories/IUsersRepository';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';

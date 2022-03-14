@@ -12,6 +12,9 @@ import RolesRepository from '@modules/roles/infra/prisma/repositories/RolesRepos
 import ITecnologiesRepository from '@modules/tecnologies/repositories/ITecnologiesRepository';
 import TecnologiesRepository from '@modules/tecnologies/infra/prisma/repositories/TecnologiesRepository';
 
+import IUsersTecnologiesRepository from '@modules/users_tecnologies/repositories/IUsersTecnologiesRepository';
+import UsersTecnologiesRepository from '@modules/users_tecnologies/infra/prisma/repositories/UsersTecnologiesRepository';
+
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
   UsersRepository,
@@ -25,4 +28,9 @@ container.registerSingleton<IRolesRepository>(
 container.registerSingleton<ITecnologiesRepository>(
   'TecnologiesRepository',
   TecnologiesRepository,
+);
+
+container.registerSingleton<IUsersTecnologiesRepository>(
+  'UsersTecnologiesRepository',
+  UsersTecnologiesRepository,
 );
