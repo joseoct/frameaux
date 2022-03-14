@@ -20,4 +20,14 @@ usersTecnologiesRouter.post(
   usersController.create,
 );
 
+usersTecnologiesRouter.patch(
+  '/',
+  celebrate({
+    [Segments.BODY]: {
+      tecnology_id: Joi.string().required(),
+    },
+  }),
+  usersController.update,
+);
+
 export default usersTecnologiesRouter;

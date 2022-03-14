@@ -36,6 +36,19 @@ class UsersTecnologiesRepository implements IUsersTecnologiesRepository {
 
     return userTecnology;
   }
+
+  public async update(userTecnology: UserTecnology): Promise<UserTecnology> {
+    const updatedUserTecnology = await this.prisma.userTecnology.update({
+      where: {
+        id: userTecnology.id,
+      },
+      data: {
+        current_layer: userTecnology.current_layer + 1,
+      },
+    });
+
+    return updatedUserTecnology;
+  }
 }
 
 export default UsersTecnologiesRepository;

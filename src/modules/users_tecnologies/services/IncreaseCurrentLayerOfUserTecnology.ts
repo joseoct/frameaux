@@ -21,12 +21,16 @@ class CreateUserTecnologyService {
     user_id,
     tecnology_id,
   }: IRequest): Promise<UserTecnology> {
-    const userTecnology = await this.usersTecnologiesRepository.create({
+    const userTecnology = await this.usersTecnologiesRepository.findByUserIdTecnologyId(
       user_id,
       tecnology_id,
-    });
+    );
 
-    return userTecnology;
+    const userTecnologyWithCurrentLayerIncreased = await this.usersTecnologiesRepository.update(
+      userTecnology,
+    );
+
+    return userTecnologyWithCurrentLayerIncreased;
   }
 }
 
