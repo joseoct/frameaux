@@ -30,4 +30,14 @@ usersTecnologiesRouter.patch(
   usersController.update,
 );
 
+usersTecnologiesRouter.delete(
+  '/',
+  celebrate({
+    [Segments.BODY]: {
+      tecnology_id: Joi.string().required(),
+    },
+  }),
+  usersController.delete,
+);
+
 export default usersTecnologiesRouter;

@@ -49,6 +49,16 @@ class UsersTecnologiesRepository implements IUsersTecnologiesRepository {
 
     return updatedUserTecnology;
   }
+
+  public async delete(userTecnology: UserTecnology): Promise<UserTecnology> {
+    const deletedUserTecnology = await this.prisma.userTecnology.delete({
+      where: {
+        id: userTecnology.id,
+      },
+    });
+
+    return deletedUserTecnology;
+  }
 }
 
 export default UsersTecnologiesRepository;

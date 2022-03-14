@@ -8,4 +8,5 @@ export default interface IUsersTecnologiesRepository {
     tecnology_id: string,
   ): Promise<UserTecnology>;
   update(userTecnology: UserTecnology): Promise<UserTecnology>;
+  delete(userTecnologyId: UserTecnology): Promise<UserTecnology>;
 }
