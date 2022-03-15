@@ -16,7 +16,7 @@ export default class ContentCreatorsController {
         page: Number(page),
       });
 
-      return response.json(contentCreators);
+      response.set('x-total-count', String(totalOfContentCreators));
 
       return response.json(contentCreatorsPaginatedByTen);
     } catch (error) {
