@@ -9,11 +9,16 @@ export default class ContentCreatorsController {
 
       const ListContentCreators = container.resolve(ListContentCreatorsService);
 
-      const contentCreators = await ListContentCreators.execute({
+      const {
+        contentCreatorsPaginatedByTen,
+        totalOfContentCreators,
+      } = await ListContentCreators.execute({
         page: Number(page),
       });
 
       return response.json(contentCreators);
+
+      return response.json(contentCreatorsPaginatedByTen);
     } catch (error) {
       return response.status(400).json({ error: error.message });
     }

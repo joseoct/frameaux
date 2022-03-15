@@ -4,7 +4,8 @@ import ICreateUserDTO from '../dtos/ICreateUserDTO';
 export default interface IUsersRepository {
   findById(id: string): Promise<User | undefined>;
   findByEmail(email: string): Promise<User | undefined>;
-  findAllContentCreators(page: number): Promise<User[]>;
+  findAllContentCreatorsPaginated(page: number): Promise<User[]>;
+  findTotalNumberContentCreators(): Promise<number>;
   create(userData: ICreateUserDTO): Promise<User>;
   update(userData: User): Promise<User>;
 }
