@@ -10,6 +10,28 @@ class UsersRepository implements IUsersRepository {
     this.prisma = new PrismaClient();
   }
 
+  public async findAllContentCreators(page: number): Promise<User[]> {
+    const users = (await this.prisma.user.findMany({
+      skip: (page - 1) * 10,
+      take: 10,
+      where: {
+        role: {
+          name: 'content_creator',
+        },
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+      },
+      orderBy: {
+        created_at: 'desc',
+      },
+    })) as User[];
+
+    return users;
+  }
+
   public async findById(id: string): Promise<User | undefined> {
     const user = await this.prisma.user.findUnique({
       where: { id },
