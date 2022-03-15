@@ -41,6 +41,7 @@ model Tecnology {
   id   String @id @default(uuid())
 
   name String @unique
+  tecnology_image String
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt

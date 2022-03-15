@@ -1,14 +1,20 @@
 import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
+import multer from 'multer';
 // import ensureAuthenticated from '@modules/tecnologies/infra/http/middlewares/ensureAuthenticated';
+import uploadConfig from '@config/upload';
+
 import TecnologiesController from '../controllers/TecnologiesController';
 
 const tecnologiesRouter = Router();
 const tecnologiesController = new TecnologiesController();
 // tecnologiesRouter.use(ensureAuthenticated);
 
+const upload = multer(uploadConfig.multer);
+
 tecnologiesRouter.post(
   '/',
+  upload.single('tecnology_image'),
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),

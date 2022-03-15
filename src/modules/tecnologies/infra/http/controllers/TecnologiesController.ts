@@ -9,9 +9,14 @@ export default class TecnologiesController {
     try {
       const { name } = request.body;
 
+      const tecnology_image = request.file.filename;
+
       const createTecnology = container.resolve(CreateTecnologyService);
 
-      const tecnology = await createTecnology.execute({ name });
+      const tecnology = await createTecnology.execute({
+        name,
+        tecnology_image,
+      });
 
       return response.json(tecnology);
     } catch (err) {
