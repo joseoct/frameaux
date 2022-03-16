@@ -12,6 +12,8 @@ const tecnologiesController = new TecnologiesController();
 
 const upload = multer(uploadConfig.multer);
 
+tecnologiesRouter.get('/', tecnologiesController.index);
+
 tecnologiesRouter.post(
   '/',
   upload.single('tecnology_image'),
