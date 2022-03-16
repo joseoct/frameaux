@@ -47,11 +47,20 @@ class UsersRepository implements IUsersRepository {
         id: true,
         name: true,
         email: true,
+        UserTecnology: {
+          select: {
+            tecnology: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        },
       },
       orderBy: {
         created_at: 'desc',
       },
-    })) as User[];
+    })) as [];
 
     return users;
   }
