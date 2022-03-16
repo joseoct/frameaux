@@ -10,7 +10,19 @@ class TecnologiesRepository implements ITecnologiesRepository {
   }
 
   public async findAllTecnologies(): Promise<Tecnology[]> {
-    const tecnologies = await this.prisma.tecnology.findMany();
+    const tecnologies = await this.prisma.tecnology.findMany({
+      include: {
+        UserTecnology: {
+          select: {
+            user: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        },
+      },
+    });
 
     return tecnologies;
   }

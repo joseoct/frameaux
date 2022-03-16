@@ -14,11 +14,8 @@ class CreateTecnologyService {
 
     const tecnologiesWithImageUrl = tecnologies.map(tecnology => {
       return {
-        id: tecnology.id,
-        name: tecnology.name,
+        ...tecnology,
         tecnology_image: `${process.env.APP_URL}/files/${tecnology.tecnology_image}`,
-        created_at: tecnology.created_at,
-        updated_at: tecnology.updated_at,
       };
     });
 
