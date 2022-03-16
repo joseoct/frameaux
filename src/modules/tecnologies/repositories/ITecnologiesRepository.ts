@@ -6,4 +6,5 @@ export default interface ITecnologiesRepository {
   update(data: Tecnology): Promise<Tecnology>;
   findById(id: string): Promise<Tecnology>;
   findByName(name: string): Promise<Tecnology>;
+  findTotalNumberTecnologies(): Promise<number>;
 }

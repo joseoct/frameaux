@@ -6,6 +6,7 @@ import profileRouter from '@modules/users/infra/http/routes/profile.routes';
 import rolesRouter from '@modules/roles/infra/http/routes/roles.routes';
 import tecnologiesRouter from '@modules/tecnologies/infra/http/routes/tecnologies.routes';
 import usersTecnologiesRouter from '@modules/users_tecnologies/infra/http/routes/usersTecnologies.routes';
+import dashboardsRouter from '@modules/dashboard/infra/http/routes/dashboards.routes';
 
 const routes = Router();
 
@@ -18,5 +19,7 @@ routes.use('/roles', rolesRouter);
 routes.use('/tecnologies', tecnologiesRouter);
 
 routes.use('/users-tecnologies', usersTecnologiesRouter);
+
+routes.use('/dashboard', dashboardsRouter);
 
 export default routes;

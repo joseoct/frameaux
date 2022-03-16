@@ -10,6 +10,18 @@ class UsersRepository implements IUsersRepository {
     this.prisma = new PrismaClient();
   }
 
+  public async findTotalNumberStudents(): Promise<number> {
+    const total = await this.prisma.user.count({
+      where: {
+        role: {
+          name: 'student',
+        },
+      },
+    });
+
+    return total;
+  }
+
   public async findTotalNumberContentCreators(): Promise<number> {
     const total = await this.prisma.user.count({
       where: {

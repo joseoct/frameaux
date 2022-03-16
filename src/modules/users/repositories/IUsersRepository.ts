@@ -6,6 +6,7 @@ export default interface IUsersRepository {
   findByEmail(email: string): Promise<User | undefined>;
   findAllContentCreatorsPaginated(page: number): Promise<User[]>;
   findTotalNumberContentCreators(): Promise<number>;
+  findTotalNumberStudents(): Promise<number>;
   create(userData: ICreateUserDTO): Promise<User>;
   update(userData: User): Promise<User>;
 }

@@ -9,6 +9,12 @@ class TecnologiesRepository implements ITecnologiesRepository {
     this.prisma = new PrismaClient();
   }
 
+  public async findTotalNumberTecnologies(): Promise<number> {
+    const total = await this.prisma.tecnology.count();
+
+    return total;
+  }
+
   public async create(tecnologyData: ICreateTecnologyDTO): Promise<Tecnology> {
     const tecnology = await this.prisma.tecnology.create({
       data: tecnologyData,
