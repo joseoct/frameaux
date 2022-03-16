@@ -33,14 +33,15 @@ model Role {
   updated_at DateTime @updatedAt
 
   users User[]
+  UserTecnology UserTecnology[]
 
   @@map("roles")
 }
 
 model Tecnology {
-  id   String @id @default(uuid())
+  id String @id @default(uuid())
 
-  name String @unique
+  name            String @unique
   tecnology_image String
 
   created_at DateTime @default(now())
@@ -57,12 +58,15 @@ model UserTecnology {
   user_id       String
   tecnology_id  String
   current_layer Int
+  role_id       String
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
   user      User      @relation(fields: [user_id], references: [id])
   tecnology Tecnology @relation(fields: [tecnology_id], references: [id])
+
+  role      Role @relation(fields: [role_id], references: [id])
 
   @@map("users_tecnologies")
 }
