@@ -1,7 +1,8 @@
 import IUsersTecnologiesRepository from '@modules/users_tecnologies/repositories/IUsersTecnologiesRepository';
-import ICreateUserTecnologyDTO from '@modules/users_tecnologies/dtos/ICreateUserTecnologyDTO';
+import ICreateStudentTecnologyDTO from '@modules/users_tecnologies/dtos/ICreateStudentTecnologyDTO';
 
 import { PrismaClient, UserTecnology } from '@prisma/client';
+import ICreateContentCreatorTecnologyDTO from '@modules/users_tecnologies/dtos/ICreateContentCreatorTecnologyDTO';
 
 class UsersTecnologiesRepository implements IUsersTecnologiesRepository {
   private prisma: PrismaClient;
@@ -10,10 +11,26 @@ class UsersTecnologiesRepository implements IUsersTecnologiesRepository {
     this.prisma = new PrismaClient();
   }
 
-  public async create(
-    userTecnologyData: ICreateUserTecnologyDTO,
+  public async createContentCreatorTecnology(
+    userTecnologyData: ICreateContentCreatorTecnologyDTO,
+  ): Promise<void> {
+    const data = userTecnologyData.content_creators_ids.map(id => {
+      return {
+        user_id: id,
+        tecnology_id: userTecnologyData.tecnology_id,
+        role_id: userTecnologyData.role_id,
+      };
+    });
+
+    await this.prisma.userTecnology.createMany({
+      data,
+    });
+  }
+
+  public async createStudentTecnology(
+    userTecnologyData: ICreateStudentTecnologyDTO,
   ): Promise<UserTecnology> {
-    const userTecnology = this.prisma.userTecnology.create({
+    const userTecnology = await this.prisma.userTecnology.create({
       data: {
         ...userTecnologyData,
         current_layer: 1,

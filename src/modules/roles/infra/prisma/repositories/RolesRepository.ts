@@ -10,7 +10,7 @@ class RoleRepository implements IRolesRepository {
     this.prisma = new PrismaClient();
   }
 
-  public async findRoleByName(name: string): Promise<Role | undefined> {
+  public async findByName(name: string): Promise<Role | undefined> {
     const role = await this.prisma.role.findUnique({
       where: { name },
     });

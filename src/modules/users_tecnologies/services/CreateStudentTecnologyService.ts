@@ -3,6 +3,7 @@ import { inject, injectable } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 import { UserTecnology } from '@prisma/client';
 
+import IRolesRepository from '@modules/roles/repositories/IRolesRepository';
 import IUsersTecnologiesRepository from '../repositories/IUsersTecnologiesRepository';
 
 interface IRequest {
@@ -11,10 +12,13 @@ interface IRequest {
 }
 
 @injectable()
-class CreateUserTecnologyService {
+class CreateStudentTecnologyService {
   constructor(
     @inject('UsersTecnologiesRepository')
     private usersTecnologiesRepository: IUsersTecnologiesRepository,
+
+    @inject('RolesRepository')
+    private rolesRepository: IRolesRepository,
   ) {}
 
   public async execute({
@@ -33,13 +37,18 @@ class CreateUserTecnologyService {
       );
     }
 
-    const userTecnology = await this.usersTecnologiesRepository.create({
-      user_id,
-      tecnology_id,
-    });
+    const studentRole = await this.rolesRepository.findByName('student');
+
+    const userTecnology = await this.usersTecnologiesRepository.createStudentTecnology(
+      {
+        user_id,
+        tecnology_id,
+        role_id: studentRole.id,
+      },
+    );
 
     return userTecnology;
   }
 }
 
-export default CreateUserTecnologyService;
+export default CreateStudentTecnologyService;

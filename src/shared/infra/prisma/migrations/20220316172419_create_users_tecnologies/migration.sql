@@ -3,7 +3,7 @@ CREATE TABLE "users_tecnologies" (
     "id" TEXT NOT NULL,
     "user_id" TEXT NOT NULL,
     "tecnology_id" TEXT NOT NULL,
-    "current_layer" INTEGER NOT NULL,
+    "current_layer" INTEGER NULL,
     "role_id" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,

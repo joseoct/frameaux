@@ -1,7 +1,7 @@
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
 
-import { PrismaClient, User } from '@prisma/client';
+import { PrismaClient, Role, User } from '@prisma/client';
 
 class UsersRepository implements IUsersRepository {
   private prisma: PrismaClient;
@@ -56,9 +56,14 @@ class UsersRepository implements IUsersRepository {
     return users;
   }
 
-  public async findById(id: string): Promise<User | undefined> {
+  public async findById(
+    id: string,
+  ): Promise<(User & { role: Role }) | undefined> {
     const user = await this.prisma.user.findUnique({
       where: { id },
+      include: {
+        role: true,
+      },
     });
 
     return user;

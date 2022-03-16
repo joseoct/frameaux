@@ -1,8 +1,14 @@
 import { UserTecnology } from '@prisma/client';
-import ICreateUserTecnologyDTO from '../dtos/ICreateUserTecnologyDTO';
+import ICreateStudentTecnologyDTO from '../dtos/ICreateStudentTecnologyDTO';
+import ICreateContentCreatorTecnologyDTO from '../dtos/ICreateContentCreatorTecnologyDTO';
 
 export default interface IUsersTecnologiesRepository {
-  create(userTecnologyData: ICreateUserTecnologyDTO): Promise<UserTecnology>;
+  createStudentTecnology(
+    studentTecnologyData: ICreateStudentTecnologyDTO,
+  ): Promise<UserTecnology>;
+  createContentCreatorTecnology(
+    contentCreatorTecnologyData: ICreateContentCreatorTecnologyDTO,
+  ): Promise<void>;
   findByUserIdTecnologyId(
     user_id: string,
     tecnology_id: string,

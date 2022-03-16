@@ -11,7 +11,7 @@ interface IRequest {
 }
 
 @injectable()
-class DeleteUserTecnologyService {
+class DeleteStudentTecnologyService {
   constructor(
     @inject('UsersTecnologiesRepository')
     private usersTecnologiesRepository: IUsersTecnologiesRepository,
@@ -38,4 +38,4 @@ class DeleteUserTecnologyService {
   }
 }
 
-export default DeleteUserTecnologyService;
+export default DeleteStudentTecnologyService;

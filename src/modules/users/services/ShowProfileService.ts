@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
-import User from '@modules/users/infra/typeorm/entities/User';
+import { Role, User } from '@prisma/client';
 
 import IUsersRepository from '../repositories/IUsersRepository';
 
@@ -16,7 +16,7 @@ class ShowProfileService {
     private usersRepository: IUsersRepository,
   ) {}
 
-  public async execute({ user_id }: IRequest): Promise<User> {
+  public async execute({ user_id }: IRequest): Promise<User & { role: Role }> {
     const user = await this.usersRepository.findById(user_id);
 
     if (!user) {

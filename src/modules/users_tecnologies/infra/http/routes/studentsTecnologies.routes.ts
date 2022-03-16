@@ -3,41 +3,41 @@ import { celebrate, Segments, Joi } from 'celebrate';
 
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 
-import UserTecnologyController from '../controllers/UserTecnologyController';
+import StudentTecnologyController from '../controllers/StudentTecnologyController';
 
-const usersTecnologiesRouter = Router();
-const usersController = new UserTecnologyController();
+const studentsTecnologiesRouter = Router();
+const studentTecnologyController = new StudentTecnologyController();
 
-usersTecnologiesRouter.use(ensureAuthenticated);
+studentsTecnologiesRouter.use(ensureAuthenticated);
 
-usersTecnologiesRouter.post(
+studentsTecnologiesRouter.post(
   '/',
   celebrate({
     [Segments.BODY]: {
       tecnology_id: Joi.string().required(),
     },
   }),
-  usersController.create,
+  studentTecnologyController.create,
 );
 
-usersTecnologiesRouter.patch(
+studentsTecnologiesRouter.patch(
   '/',
   celebrate({
     [Segments.BODY]: {
       tecnology_id: Joi.string().required(),
     },
   }),
-  usersController.update,
+  studentTecnologyController.update,
 );
 
-usersTecnologiesRouter.delete(
+studentsTecnologiesRouter.delete(
   '/',
   celebrate({
     [Segments.BODY]: {
       tecnology_id: Joi.string().required(),
     },
   }),
-  usersController.delete,
+  studentTecnologyController.delete,
 );
 
-export default usersTecnologiesRouter;
+export default studentsTecnologiesRouter;
