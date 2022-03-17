@@ -16,6 +16,7 @@ class TecnologiesRepository implements ITecnologiesRepository {
           select: {
             user: {
               select: {
+                id: true,
                 name: true,
               },
             },

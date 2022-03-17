@@ -51,6 +51,7 @@ class UsersRepository implements IUsersRepository {
           select: {
             tecnology: {
               select: {
+                id: true,
                 name: true,
               },
             },

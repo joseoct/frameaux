@@ -7,13 +7,11 @@ import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAut
 
 import UsersController from '../controllers/UsersController';
 import UserAvatarController from '../controllers/UserAvatarController';
-import ContentCreatorsController from '../controllers/ContentCreatorsController';
 
 const usersRouter = Router();
 
 const usersController = new UsersController();
 const userAvatarController = new UserAvatarController();
-const contentCreatorsController = new ContentCreatorsController();
 
 const upload = multer(uploadConfig.multer);
 
@@ -28,16 +26,6 @@ usersRouter.post(
     },
   }),
   usersController.create,
-);
-
-usersRouter.get(
-  '/content-creators',
-  celebrate({
-    [Segments.QUERY]: {
-      page: Joi.number(),
-    },
-  }),
-  contentCreatorsController.index,
 );
 
 usersRouter.patch(
