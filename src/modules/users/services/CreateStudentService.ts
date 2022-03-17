@@ -14,7 +14,7 @@ interface IRequest {
 }
 
 @injectable()
-class CreateContentCreatorService {
+class CreateStudentService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
@@ -35,9 +35,7 @@ class CreateContentCreatorService {
 
     const hashedPassword = await this.hashProvider.generateHash(password);
 
-    const contentCreatorRole = await this.rolesRepository.findByName(
-      'content_creator',
-    );
+    const contentCreatorRole = await this.rolesRepository.findByName('student');
 
     const user = await this.usersRepository.create({
       name,
@@ -52,4 +50,4 @@ class CreateContentCreatorService {
   }
 }
 
-export default CreateContentCreatorService;
+export default CreateStudentService;

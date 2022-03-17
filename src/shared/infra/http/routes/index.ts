@@ -2,6 +2,7 @@ import { Router } from 'express';
 
 import usersRouter from '@modules/users/infra/http/routes/users.routes';
 import contentCreatorRouter from '@modules/users/infra/http/routes/contentCreator.routes';
+import studentsRouter from '@modules/users/infra/http/routes/students.routes';
 import sessionsRouter from '@modules/users/infra/http/routes/sessions.routes';
 import profileRouter from '@modules/users/infra/http/routes/profile.routes';
 import rolesRouter from '@modules/roles/infra/http/routes/roles.routes';
@@ -17,6 +18,8 @@ routes.use('/sessions', sessionsRouter);
 routes.use('/profile', profileRouter);
 
 routes.use('/content-creators', contentCreatorRouter);
+
+routes.use('/students', studentsRouter);
 
 routes.use('/roles', rolesRouter);
 
