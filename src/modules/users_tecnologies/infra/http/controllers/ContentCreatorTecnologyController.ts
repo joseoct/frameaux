@@ -6,7 +6,7 @@ import CreateContentCreatorTecnologyService from '@modules/users_tecnologies/ser
 export default class ContentCreatorTecnologyController {
   public async create(request: Request, response: Response): Promise<Response> {
     try {
-      const { tecnology_name, content_creators_ids } = request.body;
+      const { name, content_creators_ids } = request.body;
 
       const tecnology_image = request.file.filename;
 
@@ -21,7 +21,7 @@ export default class ContentCreatorTecnologyController {
 
       const contentCreatatorTecnology = await createContentCreatorTecnologyService.execute(
         {
-          tecnology_name,
+          name,
           tecnology_image,
           content_creators_ids: JSON.parse(content_creator_ids_converted),
         },

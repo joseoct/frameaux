@@ -23,7 +23,7 @@ contentCreatorsTecnologiesRouter.post(
   upload.single('tecnology_image'),
   celebrate({
     [Segments.BODY]: {
-      tecnology_name: Joi.string().required(),
+      name: Joi.string().required(),
       content_creators_ids: Joi.string().required(),
     },
   }),

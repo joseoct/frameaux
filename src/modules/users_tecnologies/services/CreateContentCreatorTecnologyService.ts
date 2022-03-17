@@ -7,7 +7,7 @@ import ITecnologiesRepository from '@modules/tecnologies/repositories/ITecnologi
 import IUsersTecnologiesRepository from '../repositories/IUsersTecnologiesRepository';
 
 interface IRequest {
-  tecnology_name: string;
+  name: string;
   tecnology_image: string;
   content_creators_ids: [];
 }
@@ -26,7 +26,7 @@ class CreateContentCreatorTecnologyService {
   ) {}
 
   public async execute({
-    tecnology_name,
+    name,
     tecnology_image,
     content_creators_ids,
   }: IRequest): Promise<Tecnology> {
@@ -36,7 +36,7 @@ class CreateContentCreatorTecnologyService {
     const fileName = await this.storageProvider.saveFile(tecnology_image);
 
     const tecnology = await this.tecnologiesRepository.create({
-      name: tecnology_name,
+      name,
       tecnology_image: fileName,
     });
 

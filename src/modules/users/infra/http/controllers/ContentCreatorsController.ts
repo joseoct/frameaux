@@ -39,6 +39,7 @@ export default class ContentCreatorsController {
       });
 
       response.set('x-total-count', String(totalOfContentCreators));
+      response.setHeader('Access-Control-Expose-Headers', 'x-total-count');
 
       return response.json(contentCreatorsPaginatedByTen);
     } catch (error) {
