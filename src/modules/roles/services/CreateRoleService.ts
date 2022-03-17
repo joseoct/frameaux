@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
-import Role from '@modules/roles/infra/typeorm/entities/Role';
+import { Role } from '@prisma/client';
 import IRolesRepository from '../repositories/IRolesRepository';
 
 interface IRequest {
@@ -16,7 +16,7 @@ class CreateRoleService {
   ) {}
 
   public async execute({ name }: IRequest): Promise<Role> {
-    const checkRoleExists = await this.rolesRepository.findRoleByName(name);
+    const checkRoleExists = await this.rolesRepository.findByName(name);
 
     if (checkRoleExists) {
       throw new AppError('Role already exists');

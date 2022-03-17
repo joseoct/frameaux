@@ -33,7 +33,6 @@ model Role {
   updated_at DateTime @updatedAt
 
   users User[]
-  UserTecnology UserTecnology[]
 
   @@map("roles")
 }
@@ -65,8 +64,6 @@ model UserTecnology {
 
   user      User      @relation(fields: [user_id], references: [id])
   tecnology Tecnology @relation(fields: [tecnology_id], references: [id])
-
-  role      Role @relation(fields: [role_id], references: [id])
 
   @@map("users_tecnologies")
 }
