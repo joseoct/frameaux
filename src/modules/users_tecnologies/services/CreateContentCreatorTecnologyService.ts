@@ -2,7 +2,6 @@ import { inject, injectable } from 'tsyringe';
 
 import { Tecnology } from '@prisma/client';
 
-import IRolesRepository from '@modules/roles/repositories/IRolesRepository';
 import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
 import ITecnologiesRepository from '@modules/tecnologies/repositories/ITecnologiesRepository';
 import IUsersTecnologiesRepository from '../repositories/IUsersTecnologiesRepository';
@@ -19,9 +18,6 @@ class CreateContentCreatorTecnologyService {
     @inject('UsersTecnologiesRepository')
     private usersTecnologiesRepository: IUsersTecnologiesRepository,
 
-    @inject('RolesRepository')
-    private rolesRepository: IRolesRepository,
-
     @inject('StorageProvider')
     private storageProvider: IStorageProvider,
 
@@ -34,9 +30,6 @@ class CreateContentCreatorTecnologyService {
     tecnology_image,
     content_creators_ids,
   }: IRequest): Promise<Tecnology> {
-    const contentCreatorRole = await this.rolesRepository.findByName(
-      'content_creator',
-    );
     if (content_creators_ids.length === 0)
       throw new Error('Voce deve selecionar pelo menos um criador de conteúdo');
 
@@ -50,7 +43,6 @@ class CreateContentCreatorTecnologyService {
     await this.usersTecnologiesRepository.createContentCreatorTecnology({
       tecnology_id: tecnology.id,
       content_creators_ids,
-      role_id: contentCreatorRole.id,
     });
 
     return tecnology;

@@ -3,18 +3,11 @@ import { Router } from 'express';
 // import uploadConfig from '@config/upload';
 import { celebrate, Segments, Joi } from 'celebrate';
 
-import ensureAuthenticated from '../middlewares/ensureAuthenticated';
-import ensureRole from '../middlewares/ensureRole';
-
 import StudentsController from '../controllers/StudentsController';
 
 const studentsRouter = Router();
 
 const studentsController = new StudentsController();
-
-studentsRouter.use(ensureAuthenticated);
-
-studentsRouter.use(ensureRole(['administrator']));
 
 studentsRouter.post(
   '/',

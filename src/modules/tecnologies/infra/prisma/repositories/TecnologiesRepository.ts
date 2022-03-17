@@ -13,6 +13,13 @@ class TecnologiesRepository implements ITecnologiesRepository {
     const tecnologies = await this.prisma.tecnology.findMany({
       include: {
         UserTecnology: {
+          where: {
+            user: {
+              role: {
+                name: 'content_creator',
+              },
+            },
+          },
           select: {
             user: {
               select: {

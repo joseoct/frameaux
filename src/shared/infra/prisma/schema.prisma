@@ -57,7 +57,6 @@ model UserTecnology {
   user_id       String
   tecnology_id  String
   current_layer Int?
-  role_id       String
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt

@@ -18,7 +18,6 @@ class UsersTecnologiesRepository implements IUsersTecnologiesRepository {
       return {
         user_id: id,
         tecnology_id: userTecnologyData.tecnology_id,
-        role_id: userTecnologyData.role_id,
       };
     });
 
