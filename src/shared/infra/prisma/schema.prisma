@@ -47,6 +47,7 @@ model Tecnology {
   updated_at DateTime @updatedAt
 
   UserTecnology UserTecnology[]
+  Topic         Topic[]
 
   @@map("tecnologies")
 }
@@ -65,4 +66,20 @@ model UserTecnology {
   tecnology Tecnology @relation(fields: [tecnology_id], references: [id])
 
   @@map("users_tecnologies")
+}
+
+model Topic {
+  id String @id @default(uuid())
+
+  name         String @unique
+  explanation  String
+  tecnology_id String
+  layer        Int
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  tecnology Tecnology @relation(fields: [tecnology_id], references: [id])
+
+  @@map("topics")
 }
