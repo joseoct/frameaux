@@ -15,6 +15,9 @@ import TecnologiesRepository from '@modules/tecnologies/infra/prisma/repositorie
 import IUsersTecnologiesRepository from '@modules/users_tecnologies/repositories/IUsersTecnologiesRepository';
 import UsersTecnologiesRepository from '@modules/users_tecnologies/infra/prisma/repositories/UsersTecnologiesRepository';
 
+import ITopicsRepository from '@modules/topics/repositories/ITopicsRepository';
+import TopicsRepository from '@modules/topics/infra/prisma/repositories/TopicsRepository';
+
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
   UsersRepository,
@@ -33,4 +36,9 @@ container.registerSingleton<ITecnologiesRepository>(
 container.registerSingleton<IUsersTecnologiesRepository>(
   'UsersTecnologiesRepository',
   UsersTecnologiesRepository,
+);
+
+container.registerSingleton<ITopicsRepository>(
+  'TopicsRepository',
+  TopicsRepository,
 );

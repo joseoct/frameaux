@@ -7,6 +7,7 @@ import sessionsRouter from '@modules/users/infra/http/routes/sessions.routes';
 import profileRouter from '@modules/users/infra/http/routes/profile.routes';
 import rolesRouter from '@modules/roles/infra/http/routes/roles.routes';
 import tecnologiesRouter from '@modules/tecnologies/infra/http/routes/tecnologies.routes';
+import topicsRouter from '@modules/topics/infra/http/routes/topics.routes';
 import studentsTecnologiesRouter from '@modules/users_tecnologies/infra/http/routes/studentsTecnologies.routes';
 import contentCreatorsTecnologiesRouter from '@modules/users_tecnologies/infra/http/routes/contentCreatorsTecnologies.routes';
 import dashboardsRouter from '@modules/dashboard/infra/http/routes/dashboards.routes';
@@ -24,6 +25,8 @@ routes.use('/students', studentsRouter);
 routes.use('/roles', rolesRouter);
 
 routes.use('/tecnologies', tecnologiesRouter);
+
+routes.use('/tecnologies', topicsRouter);
 
 routes.use('/students-tecnologies', studentsTecnologiesRouter);
 
