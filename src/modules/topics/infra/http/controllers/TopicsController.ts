@@ -32,11 +32,14 @@ export default class TopicsController {
         ListTopicsByTechnologyService,
       );
 
-      const topicsByTechnology = await listTopicsByTechnology.execute({
+      const { topics, maxLayer } = await listTopicsByTechnology.execute({
         technology_id,
       });
 
-      return response.json(topicsByTechnology);
+      response.set('x-max-layer', String(maxLayer));
+      response.setHeader('Access-Control-Expose-Headers', 'x-max-layer');
+
+      return response.json(topics);
     } catch (err) {
       return response.status(400).json({ error: err.message });
     }

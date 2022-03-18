@@ -9,4 +9,8 @@ export default interface ITopicsRepository {
     name: string,
   ): Promise<Topic | undefined>;
   findMaxLayerByTechnologyId(technology_id: string): Promise<number>;
+  findLayersByLayer(
+    technology_id: string,
+    layer: number,
+  ): Promise<{ layer: number }[]>;
 }

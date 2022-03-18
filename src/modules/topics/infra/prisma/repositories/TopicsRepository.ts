@@ -9,6 +9,26 @@ class TopicsRepository implements ITopicsRepository {
     this.prisma = new PrismaClient();
   }
 
+  public async findLayersByLayer(
+    technology_id: string,
+    layer: number,
+  ): Promise<{ layer: number }[]> {
+    const layersBylayer = await this.prisma.topic.findMany({
+      where: {
+        layer: {
+          lte: layer + 1,
+          gte: layer,
+        },
+        technology_id,
+      },
+      select: {
+        layer: true,
+      },
+    });
+
+    return layersBylayer;
+  }
+
   public async findMaxLayerByTechnologyId(
     technology_id: string,
   ): Promise<number> {
@@ -16,7 +36,11 @@ class TopicsRepository implements ITopicsRepository {
       number
     >`SELECT MAX(layer) FROM topics WHERE technology_id = ${technology_id}`;
 
-    return maxLayer[0].max;
+    if (maxLayer[0].max === null) {
+      return 0;
+    }
+
+    return Math.floor(maxLayer[0].max);
   }
 
   public async findByTecnologIdAndName(

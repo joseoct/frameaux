@@ -4,7 +4,7 @@ CREATE TABLE "topics" (
     "name" TEXT NOT NULL,
     "explanation" TEXT NOT NULL,
     "technology_id" TEXT NOT NULL,
-    "layer" INTEGER NOT NULL,
+    "layer" FLOAT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 

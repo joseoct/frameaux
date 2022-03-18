@@ -36,14 +36,28 @@ class CreateTopicService {
       technology_id,
     );
 
-    if (layer > maxLayer || layer < 1) {
-      throw new AppError(`Layer must be between 1 and ${maxLayer}`);
+    if (layer > maxLayer + 1 || layer < 1) {
+      throw new AppError(`Layer must be between 1 and ${maxLayer + 1}`);
     }
+
+    const layersByLayer = await this.topicsRepository.findLayersByLayer(
+      technology_id,
+      layer,
+    );
+
+    const maxLayerByLayer =
+      layersByLayer.length === 0
+        ? layer
+        : layersByLayer.reduce(
+            (max, current_layer) =>
+              current_layer.layer > max ? current_layer.layer : max,
+            0,
+          );
 
     const topic = await this.topicsRepository.create({
       name,
       explanation,
-      layer,
+      layer: maxLayerByLayer + 0.1,
       technology_id,
     });
 
