@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import CreateTopicService from '@modules/topics/services/CreateTopicService';
-import ListTopicsByTecnologyService from '@modules/topics/services/ListTopicsByTecnologyService';
+import ListTopicsByTechnologyService from '@modules/topics/services/ListTopicsByTechnologyService';
 
 export default class TopicsController {
   public async create(request: Request, response: Response): Promise<Response> {
     try {
       const { name, explanation, layer } = request.body;
-      const { id: tecnology_id } = request.params;
+      const { id: technology_id } = request.params;
 
       const createTopic = container.resolve(CreateTopicService);
 
@@ -15,7 +15,7 @@ export default class TopicsController {
         name,
         explanation,
         layer,
-        tecnology_id,
+        technology_id,
       });
 
       return response.json(topic);
@@ -26,17 +26,17 @@ export default class TopicsController {
 
   public async index(request: Request, response: Response): Promise<Response> {
     try {
-      const { id: tecnology_id } = request.params;
+      const { id: technology_id } = request.params;
 
-      const listTopicsByTecnology = container.resolve(
-        ListTopicsByTecnologyService,
+      const listTopicsByTechnology = container.resolve(
+        ListTopicsByTechnologyService,
       );
 
-      const topicsByTecnology = await listTopicsByTecnology.execute({
-        tecnology_id,
+      const topicsByTechnology = await listTopicsByTechnology.execute({
+        technology_id,
       });
 
-      return response.json(topicsByTecnology);
+      return response.json(topicsByTechnology);
     } catch (err) {
       return response.status(400).json({ error: err.message });
     }

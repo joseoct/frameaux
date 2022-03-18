@@ -6,10 +6,10 @@ import studentsRouter from '@modules/users/infra/http/routes/students.routes';
 import sessionsRouter from '@modules/users/infra/http/routes/sessions.routes';
 import profileRouter from '@modules/users/infra/http/routes/profile.routes';
 import rolesRouter from '@modules/roles/infra/http/routes/roles.routes';
-import tecnologiesRouter from '@modules/tecnologies/infra/http/routes/tecnologies.routes';
+import technologiesRouter from '@modules/technologies/infra/http/routes/technologies.routes';
 import topicsRouter from '@modules/topics/infra/http/routes/topics.routes';
-import studentsTecnologiesRouter from '@modules/users_tecnologies/infra/http/routes/studentsTecnologies.routes';
-import contentCreatorsTecnologiesRouter from '@modules/users_tecnologies/infra/http/routes/contentCreatorsTecnologies.routes';
+import studentsTechnologiesRouter from '@modules/users_technologies/infra/http/routes/studentsTechnologies.routes';
+import contentCreatorsTechnologiesRouter from '@modules/users_technologies/infra/http/routes/contentCreatorsTechnologies.routes';
 import dashboardsRouter from '@modules/dashboard/infra/http/routes/dashboards.routes';
 
 const routes = Router();
@@ -24,13 +24,13 @@ routes.use('/students', studentsRouter);
 
 routes.use('/roles', rolesRouter);
 
-routes.use('/tecnologies', tecnologiesRouter);
+routes.use('/technologies', technologiesRouter);
 
-routes.use('/tecnologies', topicsRouter);
+routes.use('/technologies', topicsRouter);
 
-routes.use('/students-tecnologies', studentsTecnologiesRouter);
+routes.use('/students-technologies', studentsTechnologiesRouter);
 
-routes.use('/content-creators-tecnologies', contentCreatorsTecnologiesRouter);
+routes.use('/content-creators-technologies', contentCreatorsTechnologiesRouter);
 
 routes.use('/dashboard', dashboardsRouter);
 

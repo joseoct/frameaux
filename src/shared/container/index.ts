@@ -9,11 +9,11 @@ import UsersRepository from '@modules/users/infra/prisma/repositories/UsersRepos
 import IRolesRepository from '@modules/roles/repositories/IRolesRepository';
 import RolesRepository from '@modules/roles/infra/prisma/repositories/RolesRepository';
 
-import ITecnologiesRepository from '@modules/tecnologies/repositories/ITecnologiesRepository';
-import TecnologiesRepository from '@modules/tecnologies/infra/prisma/repositories/TecnologiesRepository';
+import ITechnologiesRepository from '@modules/technologies/repositories/ITechnologiesRepository';
+import TechnologiesRepository from '@modules/technologies/infra/prisma/repositories/TechnologiesRepository';
 
-import IUsersTecnologiesRepository from '@modules/users_tecnologies/repositories/IUsersTecnologiesRepository';
-import UsersTecnologiesRepository from '@modules/users_tecnologies/infra/prisma/repositories/UsersTecnologiesRepository';
+import IUsersTechnologiesRepository from '@modules/users_technologies/repositories/IUsersTechnologiesRepository';
+import UsersTechnologiesRepository from '@modules/users_technologies/infra/prisma/repositories/UsersTechnologiesRepository';
 
 import ITopicsRepository from '@modules/topics/repositories/ITopicsRepository';
 import TopicsRepository from '@modules/topics/infra/prisma/repositories/TopicsRepository';
@@ -28,14 +28,14 @@ container.registerSingleton<IRolesRepository>(
   RolesRepository,
 );
 
-container.registerSingleton<ITecnologiesRepository>(
-  'TecnologiesRepository',
-  TecnologiesRepository,
+container.registerSingleton<ITechnologiesRepository>(
+  'TechnologiesRepository',
+  TechnologiesRepository,
 );
 
-container.registerSingleton<IUsersTecnologiesRepository>(
-  'UsersTecnologiesRepository',
-  UsersTecnologiesRepository,
+container.registerSingleton<IUsersTechnologiesRepository>(
+  'UsersTechnologiesRepository',
+  UsersTechnologiesRepository,
 );
 
 container.registerSingleton<ITopicsRepository>(

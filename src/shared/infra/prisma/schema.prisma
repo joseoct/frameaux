@@ -20,7 +20,7 @@ model User {
 
   role Role @relation(fields: [role_id], references: [id])
 
-  UserTecnology UserTecnology[]
+  UserTechnology UserTechnology[]
 
   @@map("users")
 }
@@ -37,35 +37,35 @@ model Role {
   @@map("roles")
 }
 
-model Tecnology {
+model Technology {
   id String @id @default(uuid())
 
   name            String @unique
-  tecnology_image String
+  technology_image String
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  UserTecnology UserTecnology[]
+  UserTechnology UserTechnology[]
   Topic         Topic[]
 
-  @@map("tecnologies")
+  @@map("technologies")
 }
 
-model UserTecnology {
+model UserTechnology {
   id String @id @default(uuid())
 
   user_id       String
-  tecnology_id  String
+  technology_id  String
   current_layer Int?
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
   user      User      @relation(fields: [user_id], references: [id])
-  tecnology Tecnology @relation(fields: [tecnology_id], references: [id])
+  technology Technology @relation(fields: [technology_id], references: [id])
 
-  @@map("users_tecnologies")
+  @@map("users_technologies")
 }
 
 model Topic {
@@ -73,13 +73,13 @@ model Topic {
 
   name         String @unique
   explanation  String
-  tecnology_id String
+  technology_id String
   layer        Int
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  tecnology Tecnology @relation(fields: [tecnology_id], references: [id])
+  technology Technology @relation(fields: [technology_id], references: [id])
 
   @@map("topics")
 }

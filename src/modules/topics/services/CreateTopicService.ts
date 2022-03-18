@@ -7,7 +7,7 @@ interface IRequest {
   name: string;
   explanation: string;
   layer: number;
-  tecnology_id: string;
+  technology_id: string;
 }
 
 @injectable()
@@ -21,10 +21,10 @@ class CreateTopicService {
     name,
     explanation,
     layer,
-    tecnology_id,
+    technology_id,
   }: IRequest): Promise<Topic> {
     const topicExists = await this.topicsRepository.findTopicByTecnologIdAndName(
-      tecnology_id,
+      technology_id,
       name,
     );
 
@@ -36,7 +36,7 @@ class CreateTopicService {
       name,
       explanation,
       layer,
-      tecnology_id,
+      technology_id,
     });
 
     return topic;

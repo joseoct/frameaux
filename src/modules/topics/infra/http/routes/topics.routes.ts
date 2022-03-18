@@ -9,10 +9,9 @@ const topicsController = new TopicsController();
 
 topicsRouter.use(ensureAuthenticated);
 
-topicsRouter.use(ensureRole(['content_creator']));
-
 topicsRouter.get(
   '/:id/topics',
+  ensureRole(['admin', 'content_creator']),
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.string().required(),

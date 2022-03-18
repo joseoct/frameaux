@@ -1,4 +1,4 @@
-import ITecnologiesRepository from '@modules/tecnologies/repositories/ITecnologiesRepository';
+import ITechnologiesRepository from '@modules/technologies/repositories/ITechnologiesRepository';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import { injectable, inject } from 'tsyringe';
 // import AppError from '@shared/errors/AppError';
@@ -6,7 +6,7 @@ import { injectable, inject } from 'tsyringe';
 interface IResponse {
   totalContentCreators: number;
   totalStudents: number;
-  totalTecnologies: number;
+  totalTechnologies: number;
 }
 
 @injectable()
@@ -15,8 +15,8 @@ class CreateDashboardService {
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
 
-    @inject('TecnologiesRepository')
-    private tecnologiesRepository: ITecnologiesRepository,
+    @inject('TechnologiesRepository')
+    private technologiesRepository: ITechnologiesRepository,
   ) {}
 
   public async execute(): Promise<IResponse> {
@@ -24,12 +24,12 @@ class CreateDashboardService {
 
     const totalStudents = await this.usersRepository.findTotalNumberStudents();
 
-    const totalTecnologies = await this.tecnologiesRepository.findTotalNumberTecnologies();
+    const totalTechnologies = await this.technologiesRepository.findTotalNumberTechnologies();
 
     return {
       totalContentCreators,
       totalStudents,
-      totalTecnologies,
+      totalTechnologies,
     };
   }
 }

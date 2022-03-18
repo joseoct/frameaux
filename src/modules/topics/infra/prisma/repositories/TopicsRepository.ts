@@ -10,12 +10,12 @@ class TopicsRepository implements ITopicsRepository {
   }
 
   public async findTopicByTecnologIdAndName(
-    tecnology_id: string,
+    technology_id: string,
     name: string,
   ): Promise<Topic> {
     const topic = await this.prisma.topic.findFirst({
       where: {
-        tecnology_id,
+        technology_id,
         name,
       },
     });
@@ -23,12 +23,12 @@ class TopicsRepository implements ITopicsRepository {
     return topic;
   }
 
-  public async findAllByTecnologyId(
-    tecnology_id: string,
+  public async findAllByTechnologyId(
+    technology_id: string,
   ): Promise<Topic[] | undefined> {
     const topics = await this.prisma.topic.findMany({
       where: {
-        tecnology_id,
+        technology_id,
       },
     });
 

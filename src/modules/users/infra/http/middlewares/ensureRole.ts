@@ -11,20 +11,20 @@ export default function ensureAdmin(roles: Array<string>) {
     res: Response,
     next: NextFunction,
   ): Promise<void> => {
-    try {
-      const user_id = req.user.id;
+    const user_id = req.user.id;
 
-      const showProfile = container.resolve(ShowProfileService);
+    const showProfile = container.resolve(ShowProfileService);
 
-      const user = await showProfile.execute({ user_id });
+    const user = await showProfile.execute({ user_id });
 
-      if (!roles.includes(user.role.name)) {
-        throw new AppError('Parece que você está indo longe demais...', 401);
-      }
-
-      next();
-    } catch (error) {
-      throw new AppError('Erro ao encontrar cargo do usuário', 401);
+    if (!user) {
+      throw new AppError('User not found', 401);
     }
+
+    if (!roles.includes(user.role.name)) {
+      throw new AppError('Permission denied', 401);
+    }
+
+    next();
   };
 }
