@@ -11,7 +11,6 @@ topicsRouter.use(ensureAuthenticated);
 
 topicsRouter.get(
   '/:id/topics',
-  ensureRole(['admin', 'content_creator']),
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.string().required(),
@@ -22,6 +21,7 @@ topicsRouter.get(
 
 topicsRouter.post(
   '/:id',
+  ensureRole(['content_creator']),
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),

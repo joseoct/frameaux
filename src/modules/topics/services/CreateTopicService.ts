@@ -23,13 +23,21 @@ class CreateTopicService {
     layer,
     technology_id,
   }: IRequest): Promise<Topic> {
-    const topicExists = await this.topicsRepository.findTopicByTecnologIdAndName(
+    const topicExists = await this.topicsRepository.findByTecnologIdAndName(
       technology_id,
       name,
     );
 
     if (topicExists) {
-      throw new AppError('Topic already exists');
+      throw new AppError('Topic already exists on this technology');
+    }
+
+    const maxLayer = await this.topicsRepository.findMaxLayerByTechnologyId(
+      technology_id,
+    );
+
+    if (layer > maxLayer || layer < 1) {
+      throw new AppError(`Layer must be between 1 and ${maxLayer}`);
     }
 
     const topic = await this.topicsRepository.create({

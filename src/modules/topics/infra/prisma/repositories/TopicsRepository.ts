@@ -9,7 +9,17 @@ class TopicsRepository implements ITopicsRepository {
     this.prisma = new PrismaClient();
   }
 
-  public async findTopicByTecnologIdAndName(
+  public async findMaxLayerByTechnologyId(
+    technology_id: string,
+  ): Promise<number> {
+    const maxLayer = await this.prisma.$queryRaw<
+      number
+    >`SELECT MAX(layer) FROM topics WHERE technology_id = ${technology_id}`;
+
+    return maxLayer[0].max;
+  }
+
+  public async findByTecnologIdAndName(
     technology_id: string,
     name: string,
   ): Promise<Topic> {
