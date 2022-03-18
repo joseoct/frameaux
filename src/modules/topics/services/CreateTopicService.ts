@@ -1,6 +1,6 @@
 import { injectable, inject } from 'tsyringe';
-// import AppError from '@shared/errors/AppError';
 import { Topic } from '@prisma/client';
+import AppError from '@shared/errors/AppError';
 import ITopicsRepository from '../repositories/ITopicsRepository';
 
 interface IRequest {
@@ -23,12 +23,14 @@ class CreateTopicService {
     layer,
     tecnology_id,
   }: IRequest): Promise<Topic> {
-    /*
-      Check if topic already exists
-      if (topicExists) {
-        throw new AppError('topic already exists');
-      }
-    */
+    const topicExists = await this.topicsRepository.findTopicByTecnologIdAndName(
+      tecnology_id,
+      name,
+    );
+
+    if (topicExists) {
+      throw new AppError('Topic already exists');
+    }
 
     const topic = await this.topicsRepository.create({
       name,
