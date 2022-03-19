@@ -1,16 +1,11 @@
 import IUsersTechnologiesRepository from '@modules/users_technologies/repositories/IUsersTechnologiesRepository';
 import ICreateStudentTechnologyDTO from '@modules/users_technologies/dtos/ICreateStudentTechnologyDTO';
+import { prisma } from '@shared/infra/database/prisma';
 
-import { PrismaClient, UserTechnology } from '@prisma/client';
+import { UserTechnology } from '@prisma/client';
 import ICreateContentCreatorTechnologyDTO from '@modules/users_technologies/dtos/ICreateContentCreatorTechnologyDTO';
 
 class UsersTechnologiesRepository implements IUsersTechnologiesRepository {
-  private prisma: PrismaClient;
-
-  constructor() {
-    this.prisma = new PrismaClient();
-  }
-
   public async createContentCreatorTechnology(
     userTechnologyData: ICreateContentCreatorTechnologyDTO,
   ): Promise<void> {
@@ -21,7 +16,7 @@ class UsersTechnologiesRepository implements IUsersTechnologiesRepository {
       };
     });
 
-    await this.prisma.userTechnology.createMany({
+    await prisma.userTechnology.createMany({
       data,
     });
   }
@@ -29,7 +24,7 @@ class UsersTechnologiesRepository implements IUsersTechnologiesRepository {
   public async createStudentTechnology(
     userTechnologyData: ICreateStudentTechnologyDTO,
   ): Promise<UserTechnology> {
-    const userTechnology = await this.prisma.userTechnology.create({
+    const userTechnology = await prisma.userTechnology.create({
       data: {
         ...userTechnologyData,
         current_layer: 1,
@@ -43,7 +38,7 @@ class UsersTechnologiesRepository implements IUsersTechnologiesRepository {
     user_id: string,
     technology_id: string,
   ): Promise<UserTechnology> {
-    const userTechnology = await this.prisma.userTechnology.findFirst({
+    const userTechnology = await prisma.userTechnology.findFirst({
       where: {
         user_id,
         technology_id,
@@ -54,7 +49,7 @@ class UsersTechnologiesRepository implements IUsersTechnologiesRepository {
   }
 
   public async update(userTechnology: UserTechnology): Promise<UserTechnology> {
-    const updatedUserTechnology = await this.prisma.userTechnology.update({
+    const updatedUserTechnology = await prisma.userTechnology.update({
       where: {
         id: userTechnology.id,
       },
@@ -67,7 +62,7 @@ class UsersTechnologiesRepository implements IUsersTechnologiesRepository {
   }
 
   public async delete(userTechnology: UserTechnology): Promise<UserTechnology> {
-    const deletedUserTechnology = await this.prisma.userTechnology.delete({
+    const deletedUserTechnology = await prisma.userTechnology.delete({
       where: {
         id: userTechnology.id,
       },

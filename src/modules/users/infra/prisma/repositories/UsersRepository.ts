@@ -1,17 +1,18 @@
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
+import { prisma } from '@shared/infra/database/prisma';
 
-import { PrismaClient, Role, User } from '@prisma/client';
+import { User, Prisma } from '@prisma/client';
+
+export type UserWithRoles = Prisma.UserGetPayload<{
+  include: {
+    role: true;
+  };
+}>;
 
 class UsersRepository implements IUsersRepository {
-  private prisma: PrismaClient;
-
-  constructor() {
-    this.prisma = new PrismaClient();
-  }
-
   public async findTotalNumberStudents(): Promise<number> {
-    const total = await this.prisma.user.count({
+    const total = await prisma.user.count({
       where: {
         role: {
           name: 'student',
@@ -23,7 +24,7 @@ class UsersRepository implements IUsersRepository {
   }
 
   public async findTotalNumberContentCreators(): Promise<number> {
-    const total = await this.prisma.user.count({
+    const total = await prisma.user.count({
       where: {
         role: {
           name: 'content_creator',
@@ -35,7 +36,7 @@ class UsersRepository implements IUsersRepository {
   }
 
   public async findAllContentCreatorsPaginated(page: number): Promise<User[]> {
-    const users = (await this.prisma.user.findMany({
+    const users = (await prisma.user.findMany({
       skip: (page - 1) * 10,
       take: 10,
       where: {
@@ -66,10 +67,8 @@ class UsersRepository implements IUsersRepository {
     return users;
   }
 
-  public async findById(
-    id: string,
-  ): Promise<(User & { role: Role }) | undefined> {
-    const user = await this.prisma.user.findUnique({
+  public async findById(id: string): Promise<UserWithRoles | undefined> {
+    const user = await prisma.user.findUnique({
       where: { id },
       include: {
         role: true,
@@ -80,7 +79,7 @@ class UsersRepository implements IUsersRepository {
   }
 
   public async findByEmail(email: string): Promise<User | undefined> {
-    const user = await this.prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: { email },
     });
 
@@ -88,13 +87,13 @@ class UsersRepository implements IUsersRepository {
   }
 
   public async create(userData: ICreateUserDTO): Promise<User> {
-    const user = this.prisma.user.create({ data: userData });
+    const user = prisma.user.create({ data: userData });
 
     return user;
   }
 
   public async update(userData: User): Promise<User> {
-    const user = await this.prisma.user.update({
+    const user = await prisma.user.update({
       where: { id: userData.id },
       data: userData,
     });

@@ -1,16 +1,11 @@
 import ICreateTechnologyDTO from '@modules/technologies/dtos/ICreateTechnologyDTO';
 import ITechnologiesRepository from '@modules/technologies/repositories/ITechnologiesRepository';
-import { PrismaClient, Technology } from '@prisma/client';
+import { Technology } from '@prisma/client';
+import { prisma } from '@shared/infra/database/prisma';
 
 class TechnologiesRepository implements ITechnologiesRepository {
-  private prisma: PrismaClient;
-
-  constructor() {
-    this.prisma = new PrismaClient();
-  }
-
   public async findAllTechnologies(): Promise<Technology[]> {
-    const technologies = await this.prisma.technology.findMany({
+    const technologies = await prisma.technology.findMany({
       include: {
         UserTechnology: {
           where: {
@@ -36,7 +31,7 @@ class TechnologiesRepository implements ITechnologiesRepository {
   }
 
   public async findTotalNumberTechnologies(): Promise<number> {
-    const total = await this.prisma.technology.count();
+    const total = await prisma.technology.count();
 
     return total;
   }
@@ -44,7 +39,7 @@ class TechnologiesRepository implements ITechnologiesRepository {
   public async create(
     technologyData: ICreateTechnologyDTO,
   ): Promise<Technology> {
-    const technology = await this.prisma.technology.create({
+    const technology = await prisma.technology.create({
       data: technologyData,
     });
 
@@ -52,7 +47,7 @@ class TechnologiesRepository implements ITechnologiesRepository {
   }
 
   public async update(technologyData: Technology): Promise<Technology> {
-    const technology = await this.prisma.technology.update({
+    const technology = await prisma.technology.update({
       where: {
         id: technologyData.id,
       },
@@ -63,7 +58,7 @@ class TechnologiesRepository implements ITechnologiesRepository {
   }
 
   public async findById(id: string): Promise<Technology> {
-    const technology = await this.prisma.technology.findUnique({
+    const technology = await prisma.technology.findUnique({
       where: {
         id,
       },
@@ -73,7 +68,7 @@ class TechnologiesRepository implements ITechnologiesRepository {
   }
 
   public async findByName(name: string): Promise<Technology> {
-    const technology = await this.prisma.technology.findUnique({
+    const technology = await prisma.technology.findUnique({
       where: {
         name,
       },

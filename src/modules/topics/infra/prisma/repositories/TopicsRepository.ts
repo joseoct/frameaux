@@ -1,19 +1,14 @@
 import ITopicsRepository from '@modules/topics/repositories/ITopicsRepository';
 import ICreateTopicDTO from '@modules/topics/dtos/ICreateTopicDTO';
-import { PrismaClient, Topic } from '@prisma/client';
+import { Topic } from '@prisma/client';
+import { prisma } from '@shared/infra/database/prisma';
 
 class TopicsRepository implements ITopicsRepository {
-  private prisma: PrismaClient;
-
-  constructor() {
-    this.prisma = new PrismaClient();
-  }
-
   public async findLayersByLayer(
     technology_id: string,
     layer: number,
   ): Promise<{ layer: number }[]> {
-    const layersBylayer = await this.prisma.topic.findMany({
+    const layersBylayer = await prisma.topic.findMany({
       where: {
         layer: {
           lte: layer + 1,
@@ -32,7 +27,7 @@ class TopicsRepository implements ITopicsRepository {
   public async findMaxLayerByTechnologyId(
     technology_id: string,
   ): Promise<number> {
-    const maxLayer = await this.prisma.$queryRaw<
+    const maxLayer = await prisma.$queryRaw<
       number
     >`SELECT MAX(layer) FROM topics WHERE technology_id = ${technology_id}`;
 
@@ -47,7 +42,7 @@ class TopicsRepository implements ITopicsRepository {
     technology_id: string,
     name: string,
   ): Promise<Topic> {
-    const topic = await this.prisma.topic.findFirst({
+    const topic = await prisma.topic.findFirst({
       where: {
         technology_id,
         name,
@@ -60,7 +55,7 @@ class TopicsRepository implements ITopicsRepository {
   public async findAllByTechnologyId(
     technology_id: string,
   ): Promise<Topic[] | undefined> {
-    const topics = await this.prisma.topic.findMany({
+    const topics = await prisma.topic.findMany({
       where: {
         technology_id,
       },
@@ -70,7 +65,7 @@ class TopicsRepository implements ITopicsRepository {
   }
 
   public async create(topicData: ICreateTopicDTO): Promise<Topic> {
-    const result = await this.prisma.topic.create({ data: topicData });
+    const result = await prisma.topic.create({ data: topicData });
 
     return result;
   }
