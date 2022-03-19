@@ -38,7 +38,7 @@ class TopicsRepository implements ITopicsRepository {
     return Math.floor(maxLayer[0].max);
   }
 
-  public async findByTecnologIdAndName(
+  public async findByTechnologyIdAndName(
     technology_id: string,
     name: string,
   ): Promise<Topic> {
@@ -58,6 +58,9 @@ class TopicsRepository implements ITopicsRepository {
     const topics = await prisma.topic.findMany({
       where: {
         technology_id,
+      },
+      orderBy: {
+        layer: 'asc',
       },
     });
 

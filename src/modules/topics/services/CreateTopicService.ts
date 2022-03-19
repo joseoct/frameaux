@@ -23,7 +23,7 @@ class CreateTopicService {
     layer,
     technology_id,
   }: IRequest): Promise<Topic> {
-    const topicExists = await this.topicsRepository.findByTecnologIdAndName(
+    const topicExists = await this.topicsRepository.findByTechnologyIdAndName(
       technology_id,
       name,
     );
@@ -54,10 +54,17 @@ class CreateTopicService {
             0,
           );
 
+    if (
+      parseFloat((maxLayerByLayer - Math.floor(maxLayerByLayer)).toFixed(1)) ===
+      0.9
+    ) {
+      throw new AppError('The maximum topics per layer is nine');
+    }
+
     const topic = await this.topicsRepository.create({
       name,
       explanation,
-      layer: maxLayerByLayer + 0.1,
+      layer: parseFloat((maxLayerByLayer + 0.1).toFixed(2)),
       technology_id,
     });
 

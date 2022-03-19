@@ -35,13 +35,13 @@ class CreateStudentService {
 
     const hashedPassword = await this.hashProvider.generateHash(password);
 
-    const contentCreatorRole = await this.rolesRepository.findByName('student');
+    const studentRole = await this.rolesRepository.findByName('student');
 
     const user = await this.usersRepository.create({
       name,
       email,
       password: hashedPassword,
-      role_id: contentCreatorRole.id,
+      role_id: studentRole.id,
     });
 
     delete user.password;

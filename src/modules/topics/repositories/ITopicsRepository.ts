@@ -4,7 +4,7 @@ import ICreateTopicDTO from '../dtos/ICreateTopicDTO';
 export default interface ITopicsRepository {
   create(topicData: ICreateTopicDTO): Promise<Topic>;
   findAllByTechnologyId(technology_id: string): Promise<Topic[] | undefined>;
-  findByTecnologIdAndName(
+  findByTechnologyIdAndName(
     technology_id: string,
     name: string,
   ): Promise<Topic | undefined>;
