@@ -16,10 +16,9 @@ const upload = multer(uploadConfig.multer);
 
 contentCreatorsTechnologiesRouter.use(ensureAuthenticated);
 
-contentCreatorsTechnologiesRouter.use(ensureRole(['administrator']));
-
 contentCreatorsTechnologiesRouter.post(
   '/',
+  ensureRole(['administrator']),
   upload.single('technology_image'),
   celebrate({
     [Segments.BODY]: {
@@ -28,6 +27,17 @@ contentCreatorsTechnologiesRouter.post(
     },
   }),
   contentCreatorTechnologyController.create,
+);
+
+contentCreatorsTechnologiesRouter.get(
+  '/',
+  ensureRole(['content_creator']),
+  celebrate({
+    [Segments.QUERY]: {
+      content_creator_id: Joi.string().required(),
+    },
+  }),
+  contentCreatorTechnologyController.index,
 );
 
 export default contentCreatorsTechnologiesRouter;

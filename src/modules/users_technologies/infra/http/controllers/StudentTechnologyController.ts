@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
 import CreateStudentTechnologyService from '@modules/users_technologies/services/CreateStudentTechnologyService';
-import IncreaseCurrentLayerOfStudentTechnology from '@modules/users_technologies/services/IncreaseCurrentLayerOfStudentTechnology';
+import IncreaseCurrentLayerOfStudentTechnologyService from '@modules/users_technologies/services/IncreaseCurrentLayerOfStudentTechnologyService';
 import DeleteStudentTechnologyService from '@modules/users_technologies/services/DeleteStudentTechnologyService';
 
 export default class StudentTechnologyController {
@@ -32,7 +32,7 @@ export default class StudentTechnologyController {
       const { technology_id } = request.body;
 
       const increaseCurrentLayerOfUserTechnology = container.resolve(
-        IncreaseCurrentLayerOfStudentTechnology,
+        IncreaseCurrentLayerOfStudentTechnologyService,
       );
 
       const student_technology = await increaseCurrentLayerOfUserTechnology.execute(

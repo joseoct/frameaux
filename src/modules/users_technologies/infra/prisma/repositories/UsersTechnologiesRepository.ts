@@ -1,11 +1,33 @@
 import IUsersTechnologiesRepository from '@modules/users_technologies/repositories/IUsersTechnologiesRepository';
+import ICreateContentCreatorTechnologyDTO from '@modules/users_technologies/dtos/ICreateContentCreatorTechnologyDTO';
 import ICreateStudentTechnologyDTO from '@modules/users_technologies/dtos/ICreateStudentTechnologyDTO';
+
 import { prisma } from '@shared/infra/database/prisma';
 
-import { UserTechnology } from '@prisma/client';
-import ICreateContentCreatorTechnologyDTO from '@modules/users_technologies/dtos/ICreateContentCreatorTechnologyDTO';
+import { UserTechnology, Prisma } from '@prisma/client';
+
+export type TechnologiesByContentCreator = Prisma.UserTechnologyGetPayload<{
+  select: {
+    technology: true;
+  };
+}>;
 
 class UsersTechnologiesRepository implements IUsersTechnologiesRepository {
+  public async findAllTechnologiesByContentCreatorId(
+    contentCreatorId: string,
+  ): Promise<TechnologiesByContentCreator[]> {
+    const technologiesByContentCreator = await prisma.userTechnology.findMany({
+      where: {
+        user_id: contentCreatorId,
+      },
+      select: {
+        technology: true,
+      },
+    });
+
+    return technologiesByContentCreator;
+  }
+
   public async createContentCreatorTechnology(
     userTechnologyData: ICreateContentCreatorTechnologyDTO,
   ): Promise<void> {

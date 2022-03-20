@@ -1,6 +1,7 @@
 import { UserTechnology } from '@prisma/client';
 import ICreateStudentTechnologyDTO from '../dtos/ICreateStudentTechnologyDTO';
 import ICreateContentCreatorTechnologyDTO from '../dtos/ICreateContentCreatorTechnologyDTO';
+import { TechnologiesByContentCreator } from '../infra/prisma/repositories/UsersTechnologiesRepository';
 
 export default interface IUsersTechnologiesRepository {
   createStudentTechnology(
@@ -15,4 +16,7 @@ export default interface IUsersTechnologiesRepository {
   ): Promise<UserTechnology>;
   update(userTechnology: UserTechnology): Promise<UserTechnology>;
   delete(userTechnologyId: UserTechnology): Promise<UserTechnology>;
+  findAllTechnologiesByContentCreatorId(
+    contentCreatorId: string,
+  ): Promise<TechnologiesByContentCreator[]>;
 }

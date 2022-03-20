@@ -4,9 +4,13 @@ import { prisma } from '@shared/infra/database/prisma';
 
 import { User, Prisma } from '@prisma/client';
 
-export type UserWithRoles = Prisma.UserGetPayload<{
+export type UserWithRoleName = Prisma.UserGetPayload<{
   include: {
-    role: true;
+    role: {
+      select: {
+        name: true;
+      };
+    };
   };
 }>;
 
@@ -67,20 +71,33 @@ class UsersRepository implements IUsersRepository {
     return users;
   }
 
-  public async findById(id: string): Promise<UserWithRoles | undefined> {
+  public async findById(id: string): Promise<UserWithRoleName | undefined> {
     const user = await prisma.user.findUnique({
       where: { id },
       include: {
-        role: true,
+        role: {
+          select: {
+            name: true,
+          },
+        },
       },
     });
 
     return user;
   }
 
-  public async findByEmail(email: string): Promise<User | undefined> {
+  public async findByEmail(
+    email: string,
+  ): Promise<UserWithRoleName | undefined> {
     const user = await prisma.user.findUnique({
       where: { email },
+      include: {
+        role: {
+          select: {
+            name: true,
+          },
+        },
+      },
     });
 
     return user;
