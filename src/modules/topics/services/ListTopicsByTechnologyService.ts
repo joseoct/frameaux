@@ -7,8 +7,7 @@ interface IRequest {
 }
 
 interface IResponse {
-  topics: Topic[];
-  maxLayer: number;
+  layerTopics: Topic[][];
 }
 
 @injectable()
@@ -27,7 +26,15 @@ class ListTopicsService {
       technology_id,
     );
 
-    return { topics, maxLayer };
+    const layerTopics = topics.reduce<Topic[][]>((acc, topic) => {
+      const floor = Math.floor(topic.layer);
+
+      acc[floor] = [...acc[floor], topic];
+
+      return acc;
+    }, new Array(maxLayer + 1).fill([]));
+
+    return { layerTopics };
   }
 }
 

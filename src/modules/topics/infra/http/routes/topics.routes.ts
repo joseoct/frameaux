@@ -23,13 +23,13 @@ topicsRouter.post(
   '/:id',
   ensureRole(['content_creator']),
   celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().required(),
+    },
     [Segments.BODY]: {
       name: Joi.string().required(),
       explanation: Joi.string().required(),
       layer: Joi.number().required(),
-    },
-    [Segments.PARAMS]: {
-      id: Joi.string().required(),
     },
   }),
   topicsController.create,
