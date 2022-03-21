@@ -6,10 +6,6 @@ interface IRequest {
   technology_id: string;
 }
 
-interface IResponse {
-  layerTopics: Topic[][];
-}
-
 @injectable()
 class ListTopicsService {
   constructor(
@@ -17,7 +13,7 @@ class ListTopicsService {
     private topicsRepository: ITopicsRepository,
   ) {}
 
-  public async execute({ technology_id }: IRequest): Promise<IResponse> {
+  public async execute({ technology_id }: IRequest): Promise<Topic[][]> {
     const maxLayer = await this.topicsRepository.findMaxLayerByTechnologyId(
       technology_id,
     );
@@ -34,7 +30,7 @@ class ListTopicsService {
       return acc;
     }, new Array(maxLayer + 1).fill([]));
 
-    return { layerTopics };
+    return layerTopics;
   }
 }
 
