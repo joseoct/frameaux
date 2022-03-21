@@ -14,6 +14,16 @@ const upload = multer(uploadConfig.multer);
 
 technologiesRouter.get('/', technologiesController.index);
 
+technologiesRouter.get(
+  '/:id',
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().uuid().required(),
+    },
+  }),
+  technologiesController.show,
+);
+
 technologiesRouter.post(
   '/',
   upload.single('technology_image'),
