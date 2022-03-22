@@ -1,6 +1,7 @@
 import { injectable, inject } from 'tsyringe';
 import { Topic } from '@prisma/client';
 import AppError from '@shared/errors/AppError';
+import ILevelsRepository from '@modules/levels/repositories/ILevelsRepository';
 import ITopicsRepository from '../repositories/ITopicsRepository';
 
 interface IRequest {
@@ -15,6 +16,9 @@ class CreateTopicService {
   constructor(
     @inject('TopicsRepository')
     private topicsRepository: ITopicsRepository,
+
+    @inject('LevelsRepository')
+    private levelsRepository: ILevelsRepository,
   ) {}
 
   public async execute({
@@ -67,6 +71,10 @@ class CreateTopicService {
       layer: parseFloat((maxLayerByLayer + 0.1).toFixed(2)),
       technology_id,
     });
+
+    await this.levelsRepository.create({ topic_id: topic.id });
+    await this.levelsRepository.create({ topic_id: topic.id });
+    await this.levelsRepository.create({ topic_id: topic.id });
 
     return topic;
   }

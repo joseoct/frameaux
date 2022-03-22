@@ -72,6 +72,16 @@ class TopicsRepository implements ITopicsRepository {
 
     return result;
   }
+
+  public async findById(topic_id: string): Promise<Topic | undefined> {
+    const topic = await prisma.topic.findFirst({
+      where: {
+        id: topic_id,
+      },
+    });
+
+    return topic;
+  }
 }
 
 export default TopicsRepository;

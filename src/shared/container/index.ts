@@ -18,6 +18,9 @@ import UsersTechnologiesRepository from '@modules/users_technologies/infra/prism
 import ITopicsRepository from '@modules/topics/repositories/ITopicsRepository';
 import TopicsRepository from '@modules/topics/infra/prisma/repositories/TopicsRepository';
 
+import ILevelsRepository from '@modules/levels/repositories/ILevelsRepository';
+import LevelsRepository from '@modules/levels/infra/prisma/repositories/LevelsRepository';
+
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
   UsersRepository,
@@ -41,4 +44,9 @@ container.registerSingleton<IUsersTechnologiesRepository>(
 container.registerSingleton<ITopicsRepository>(
   'TopicsRepository',
   TopicsRepository,
+);
+
+container.registerSingleton<ILevelsRepository>(
+  'LevelsRepository',
+  LevelsRepository,
 );

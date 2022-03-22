@@ -13,4 +13,5 @@ export default interface ITopicsRepository {
     technology_id: string,
     layer: number,
   ): Promise<{ layer: number }[]>;
+  findById(topic_id: string): Promise<Topic | undefined>;
 }

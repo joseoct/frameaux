@@ -1,39 +1,16 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import CreateTopicService from '@modules/topics/services/CreateTopicService';
-import ListTopicsByTechnologyService from '@modules/topics/services/ListTopicsByTechnologyService';
+import ShowTopicService from '@modules/topics/services/ShowTopicService';
 
 export default class TopicsController {
-  public async create(request: Request, response: Response): Promise<Response> {
+  public async show(request: Request, response: Response): Promise<Response> {
     try {
-      const { name, explanation, layer } = request.body;
-      const { id: technology_id } = request.params;
+      const { topic_id } = request.params;
 
-      const createTopic = container.resolve(CreateTopicService);
+      const showTopicService = container.resolve(ShowTopicService);
 
-      const topic = await createTopic.execute({
-        name,
-        explanation,
-        layer,
-        technology_id,
-      });
-
-      return response.json(topic);
-    } catch (err) {
-      return response.status(400).json({ error: err.message });
-    }
-  }
-
-  public async index(request: Request, response: Response): Promise<Response> {
-    try {
-      const { id: technology_id } = request.params;
-
-      const listTopicsByTechnology = container.resolve(
-        ListTopicsByTechnologyService,
-      );
-
-      const layerTopics = await listTopicsByTechnology.execute({
-        technology_id,
+      const layerTopics = await showTopicService.execute({
+        topic_id,
       });
 
       return response.json(layerTopics);
