@@ -11,8 +11,5 @@ CREATE TABLE "topics" (
     CONSTRAINT "topics_pkey" PRIMARY KEY ("id")
 );
 
--- CreateIndex
-CREATE UNIQUE INDEX "topics_name_key" ON "topics"("name");
-
 -- AddForeignKey
 ALTER TABLE "topics" ADD CONSTRAINT "topics_technology_id_fkey" FOREIGN KEY ("technology_id") REFERENCES "technologies"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

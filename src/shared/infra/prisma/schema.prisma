@@ -71,7 +71,7 @@ model UserTechnology {
 model Topic {
   id String @id @default(uuid())
 
-  name         String @unique
+  name         String
   explanation  String
   technology_id String
   layer        Float
