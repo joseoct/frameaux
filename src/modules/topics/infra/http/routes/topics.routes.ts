@@ -6,10 +6,10 @@ const topicsRouter = Router();
 const topicsController = new TopicsController();
 
 topicsRouter.get(
-  '/:id',
+  '/:topic_id',
   celebrate({
     [Segments.PARAMS]: {
-      id: Joi.string().required(),
+      topic_id: Joi.string().required(),
     },
   }),
   topicsController.show,

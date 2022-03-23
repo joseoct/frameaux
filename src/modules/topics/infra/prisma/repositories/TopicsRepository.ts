@@ -74,7 +74,7 @@ class TopicsRepository implements ITopicsRepository {
   }
 
   public async findById(topic_id: string): Promise<Topic | undefined> {
-    const topic = await prisma.topic.findFirst({
+    const topic = await prisma.topic.findUnique({
       where: {
         id: topic_id,
       },

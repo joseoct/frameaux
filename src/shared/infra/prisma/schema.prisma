@@ -79,7 +79,23 @@ model Topic {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
+  Level Level[]
+
   technology Technology @relation(fields: [technology_id], references: [id])
 
   @@map("topics")
+}
+
+model Level {
+  id String @id @default(uuid())
+
+  difficulty Int
+  topic_id String
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  topic Topic @relation(fields: [topic_id], references: [id])
+
+  @@map("levels")
 }
