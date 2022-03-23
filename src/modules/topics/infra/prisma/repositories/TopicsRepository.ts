@@ -82,6 +82,53 @@ class TopicsRepository implements ITopicsRepository {
 
     return topic;
   }
+
+  public async deleteById(topic_id: string): Promise<Topic> {
+    const deletedTopic = await prisma.topic.delete({
+      where: {
+        id: topic_id,
+      },
+    });
+
+    return deletedTopic;
+  }
+
+  public async updateLayerByOne(
+    layer: number,
+    technology_id: string,
+  ): Promise<void> {
+    await prisma.$queryRaw`
+      UPDATE topics
+      SET layer = layer - 1
+      WHERE technology_id = ${technology_id}
+      AND layer > ${layer}
+    `;
+  }
+
+  public async updateLayerByZeroPointOne(topic_id: string): Promise<void> {
+    await prisma.$queryRaw`
+      UPDATE topics
+      SET layer = layer - 0.1
+      WHERE id = ${topic_id} 
+    `;
+  }
+
+  public async topicsGrater(
+    technology_id: string,
+    layer: number,
+  ): Promise<Topic[]> {
+    const topics = await prisma.topic.findMany({
+      where: {
+        layer: {
+          gte: layer,
+          lte: Math.round(layer + 1),
+        },
+        technology_id,
+      },
+    });
+
+    return topics;
+  }
 }
 
 export default TopicsRepository;
