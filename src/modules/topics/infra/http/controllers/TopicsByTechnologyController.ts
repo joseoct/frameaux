@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import CreateTopicService from '@modules/topics/services/CreateTopicService';
 import ListTopicsByTechnologyService from '@modules/topics/services/ListTopicsByTechnologyService';
-import DeleteTopicByTechnologyService from '@modules/topics/services/DeleteTopicByTechnologyService';
 
 export default class TopicsController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -38,25 +37,6 @@ export default class TopicsController {
       });
 
       return response.json(layerTopics);
-    } catch (err) {
-      return response.status(400).json({ error: err.message });
-    }
-  }
-
-  public async delete(request: Request, response: Response): Promise<Response> {
-    try {
-      const { technology_id, topic_id } = request.params;
-
-      const deleteTopicByTechnology = container.resolve(
-        DeleteTopicByTechnologyService,
-      );
-
-      const deletedTopic = await deleteTopicByTechnology.execute({
-        technology_id,
-        topic_id,
-      });
-
-      return response.json(deletedTopic);
     } catch (err) {
       return response.status(400).json({ error: err.message });
     }

@@ -16,6 +16,8 @@ export default interface ITopicsRepository {
   findById(topic_id: string): Promise<Topic | undefined>;
   deleteById(topic_id: string): Promise<Topic | undefined>;
   updateLayerByOne(layer: number, technology_id: string): Promise<void>;
-  updateLayerByZeroPointOne(topic_id: string): Promise<void>;
-  topicsGrater(technology_id: string, layer: number): Promise<Topic[]>;
+  updateLayerByZeroPointOne(
+    layer: number,
+    technology_id: string,
+  ): Promise<void>;
 }

@@ -35,16 +35,4 @@ topicsByTechnologies.post(
   topicsByTechnology.create,
 );
 
-topicsByTechnologies.delete(
-  '/:technology_id/topics/:topic_id',
-  ensureRole(['content_creator']),
-  celebrate({
-    [Segments.PARAMS]: {
-      technology_id: Joi.string().required(),
-      topic_id: Joi.string().required(),
-    },
-  }),
-  topicsByTechnology.delete,
-);
-
 export default topicsByTechnologies;

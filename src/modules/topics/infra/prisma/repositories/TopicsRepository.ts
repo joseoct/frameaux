@@ -97,37 +97,39 @@ class TopicsRepository implements ITopicsRepository {
     layer: number,
     technology_id: string,
   ): Promise<void> {
-    await prisma.$queryRaw`
-      UPDATE topics
-      SET layer = layer - 1
-      WHERE technology_id = ${technology_id}
-      AND layer > ${layer}
-    `;
-  }
-
-  public async updateLayerByZeroPointOne(topic_id: string): Promise<void> {
-    await prisma.$queryRaw`
-      UPDATE topics
-      SET layer = layer - 0.1
-      WHERE id = ${topic_id} 
-    `;
-  }
-
-  public async topicsGrater(
-    technology_id: string,
-    layer: number,
-  ): Promise<Topic[]> {
-    const topics = await prisma.topic.findMany({
+    await prisma.topic.updateMany({
       where: {
-        layer: {
-          gte: layer,
-          lte: Math.round(layer + 1),
-        },
         technology_id,
+        layer: {
+          gt: layer,
+        },
+      },
+      data: {
+        layer: {
+          decrement: 1,
+        },
       },
     });
+  }
 
-    return topics;
+  public async updateLayerByZeroPointOne(
+    layer: number,
+    technology_id: string,
+  ): Promise<void> {
+    await prisma.topic.updateMany({
+      where: {
+        technology_id,
+        layer: {
+          gt: layer,
+          lt: Math.round(layer + 1),
+        },
+      },
+      data: {
+        layer: {
+          decrement: 0.1,
+        },
+      },
+    });
   }
 }
 

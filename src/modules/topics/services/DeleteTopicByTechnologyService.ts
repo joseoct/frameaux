@@ -3,7 +3,6 @@ import { Topic } from '@prisma/client';
 import ITopicsRepository from '../repositories/ITopicsRepository';
 
 interface IRequest {
-  technology_id: string;
   topic_id: string;
 }
 
@@ -14,15 +13,15 @@ class ListTopicsService {
     private topicsRepository: ITopicsRepository,
   ) {}
 
-  public async execute({ technology_id, topic_id }: IRequest): Promise<Topic> {
+  public async execute({ topic_id }: IRequest): Promise<Topic> {
     const topicToBeDeleted = await this.topicsRepository.findById(topic_id);
 
     const maxLayer = await this.topicsRepository.findMaxLayerByTechnologyId(
-      technology_id,
+      topicToBeDeleted.technology_id,
     );
 
     const topics = await this.topicsRepository.findAllByTechnologyId(
-      technology_id,
+      topicToBeDeleted.technology_id,
     );
 
     const layerTopics = topics.reduce<Topic[][]>((acc, topic) => {
@@ -36,17 +35,13 @@ class ListTopicsService {
     if (layerTopics[Math.floor(topicToBeDeleted.layer)].length === 1) {
       await this.topicsRepository.updateLayerByOne(
         topicToBeDeleted.layer,
-        technology_id,
+        topicToBeDeleted.technology_id,
       );
     } else {
-      const topicsToBeUpdated = await this.topicsRepository.topicsGrater(
-        technology_id,
+      await this.topicsRepository.updateLayerByZeroPointOne(
         topicToBeDeleted.layer,
+        topicToBeDeleted.technology_id,
       );
-
-      topicsToBeUpdated.forEach(async topic => {
-        await this.topicsRepository.updateLayerByZeroPointOne(topic.id);
-      });
     }
 
     const deletedTopic = await this.topicsRepository.deleteById(
