@@ -26,8 +26,8 @@ class CreateStudentTechnologyService {
       technology_id,
     );
 
-    const userTechnologyWithCurrentLayerIncreased = await this.usersTechnologiesRepository.update(
-      userTechnology,
+    const userTechnologyWithCurrentLayerIncreased = await this.usersTechnologiesRepository.updateCurrentLayer(
+      userTechnology.id,
     );
 
     return userTechnologyWithCurrentLayerIncreased;

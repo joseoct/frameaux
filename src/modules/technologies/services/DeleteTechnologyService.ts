@@ -7,21 +7,19 @@ interface IRequest {
 }
 
 @injectable()
-class ShowTechnologyService {
+class DeleteTechnologyService {
   constructor(
     @inject('TechnologiesRepository')
     private technologiesRepository: ITechnologiesRepository,
   ) {}
 
   public async execute({ technology_id }: IRequest): Promise<Technology> {
-    const technology = await this.technologiesRepository.findById(
+    const technology = await this.technologiesRepository.deleteById(
       technology_id,
     );
-
-    technology.technology_image = `${process.env.APP_URL}/files/${technology.technology_image}`;
 
     return technology;
   }
 }
 
-export default ShowTechnologyService;
+export default DeleteTechnologyService;

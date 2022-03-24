@@ -5,6 +5,7 @@ import CreateTechnologyService from '@modules/technologies/services/CreateTechno
 import UpdateTechnologyService from '@modules/technologies/services/UpdateTechnologyService';
 import ListAllTechnologiesService from '@modules/technologies/services/ListAllTechnologiesService';
 import ShowTechnologyService from '@modules/technologies/services/ShowTechnologyService';
+import DeleteTechnologyService from '@modules/technologies/services/DeleteTechnologyService';
 
 export default class TechnologiesController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -28,7 +29,8 @@ export default class TechnologiesController {
 
   public async update(request: Request, response: Response): Promise<Response> {
     try {
-      const { technology_id, name } = request.body;
+      const { name } = request.body;
+      const { technology_id } = request.params;
 
       const updateTechnology = container.resolve(UpdateTechnologyService);
 
@@ -57,13 +59,31 @@ export default class TechnologiesController {
 
   public async show(request: Request, response: Response): Promise<Response> {
     try {
-      const { id: technology_id } = request.params;
+      const { technology_id } = request.params;
 
       const showTechnology = container.resolve(ShowTechnologyService);
 
       const technology = await showTechnology.execute({ technology_id });
 
       return response.json(technology);
+    } catch (error) {
+      return response.status(400).json({ error: error.message });
+    }
+  }
+
+  public async delete(request: Request, response: Response): Promise<Response> {
+    try {
+      const { technology_id } = request.params;
+
+      const deleteTechnologyService = container.resolve(
+        DeleteTechnologyService,
+      );
+
+      const deletedTechnology = await deleteTechnologyService.execute({
+        technology_id,
+      });
+
+      return response.json(deletedTechnology);
     } catch (error) {
       return response.status(400).json({ error: error.message });
     }

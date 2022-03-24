@@ -9,7 +9,7 @@ interface IRequest {
 }
 
 @injectable()
-class UpdateTechnologyServicd {
+class UpdateTechnologyService {
   constructor(
     @inject('TechnologiesRepository')
     private technologiesRepository: ITechnologiesRepository,
@@ -32,4 +32,4 @@ class UpdateTechnologyServicd {
   }
 }
 
-export default UpdateTechnologyServicd;
+export default UpdateTechnologyService;

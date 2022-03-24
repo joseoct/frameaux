@@ -18,7 +18,7 @@ model User {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  role Role @relation(fields: [role_id], references: [id])
+  role Role @relation(fields: [role_id], onDelete: Cascade, onUpdate: Cascade,references: [id])
 
   UserTechnology UserTechnology[]
 
@@ -62,8 +62,8 @@ model UserTechnology {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  user      User      @relation(fields: [user_id], references: [id])
-  technology Technology @relation(fields: [technology_id], references: [id])
+  user      User      @relation(fields: [user_id], onDelete: Cascade, onUpdate: Cascade,references: [id])
+  technology Technology @relation(fields: [technology_id], onDelete: Cascade, onUpdate: Cascade,references: [id])
 
   @@map("users_technologies")
 }
@@ -81,7 +81,7 @@ model Topic {
 
   Level Level[]
 
-  technology Technology @relation(fields: [technology_id], references: [id])
+  technology Technology @relation(fields: [technology_id], onDelete: Cascade, onUpdate: Cascade,references: [id])
 
   @@map("topics")
 }
@@ -95,7 +95,7 @@ model Level {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  topic Topic @relation(fields: [topic_id], references: [id])
+  topic Topic @relation(fields: [topic_id], onDelete: Cascade, onUpdate: Cascade,references: [id])
 
   @@map("levels")
 }

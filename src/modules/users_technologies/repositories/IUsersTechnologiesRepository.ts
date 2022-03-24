@@ -13,6 +13,7 @@ export default interface IUsersTechnologiesRepository {
     user_id: string,
     technology_id: string,
   ): Promise<UserTechnology>;
-  update(userTechnology: UserTechnology): Promise<UserTechnology>;
+  updateCurrentLayer(userTechnology_id: string): Promise<UserTechnology>;
+  deleteAllContentCreatorTechnology(technology_id: string): Promise<void>;
   delete(userTechnologyId: UserTechnology): Promise<UserTechnology>;
 }

@@ -67,16 +67,32 @@ class TechnologiesRepository implements ITechnologiesRepository {
       where: {
         id: technologyData.id,
       },
-      data: technologyData,
+      data: {
+        name: technologyData.name,
+      },
     });
 
     return technology;
   }
 
-  public async findById(id: string): Promise<Technology> {
+  public async findById(technology_id: string): Promise<Technology> {
     const technology = await prisma.technology.findUnique({
       where: {
-        id,
+        id: technology_id,
+      },
+      include: {
+        UserTechnology: {
+          where: {
+            current_layer: null,
+          },
+          select: {
+            user: {
+              select: {
+                id: true,
+              },
+            },
+          },
+        },
       },
     });
 
@@ -91,6 +107,16 @@ class TechnologiesRepository implements ITechnologiesRepository {
     });
 
     return technology;
+  }
+
+  public async deleteById(technology_id: string): Promise<Technology> {
+    const deletedTechnology = await prisma.technology.delete({
+      where: {
+        id: technology_id,
+      },
+    });
+
+    return deletedTechnology;
   }
 }
 

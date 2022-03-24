@@ -29,4 +29,19 @@ contentCreatorsTechnologiesRouter.post(
   contentCreatorTechnologyController.create,
 );
 
+contentCreatorsTechnologiesRouter.put(
+  '/:technology_id',
+  ensureRole(['administrator']),
+  celebrate({
+    [Segments.PARAMS]: {
+      technology_id: Joi.string().required(),
+    },
+    [Segments.BODY]: {
+      name: Joi.string().required(),
+      content_creators_ids: Joi.string().required(),
+    },
+  }),
+  contentCreatorTechnologyController.update,
+);
+
 export default contentCreatorsTechnologiesRouter;

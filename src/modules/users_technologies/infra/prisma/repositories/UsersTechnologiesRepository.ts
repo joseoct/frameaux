@@ -8,12 +8,12 @@ import { UserTechnology } from '@prisma/client';
 
 class UsersTechnologiesRepository implements IUsersTechnologiesRepository {
   public async createContentCreatorTechnology(
-    userTechnologyData: ICreateContentCreatorTechnologyDTO,
+    contentCreatorTechnologyData: ICreateContentCreatorTechnologyDTO,
   ): Promise<void> {
-    const data = userTechnologyData.content_creators_ids.map(id => {
+    const data = contentCreatorTechnologyData.content_creators_ids.map(id => {
       return {
         user_id: id,
-        technology_id: userTechnologyData.technology_id,
+        technology_id: contentCreatorTechnologyData.technology_id,
       };
     });
 
@@ -49,13 +49,17 @@ class UsersTechnologiesRepository implements IUsersTechnologiesRepository {
     return userTechnology;
   }
 
-  public async update(userTechnology: UserTechnology): Promise<UserTechnology> {
+  public async updateCurrentLayer(
+    userTechnology_id: string,
+  ): Promise<UserTechnology> {
     const updatedUserTechnology = await prisma.userTechnology.update({
       where: {
-        id: userTechnology.id,
+        id: userTechnology_id,
       },
       data: {
-        current_layer: userTechnology.current_layer + 1,
+        current_layer: {
+          increment: 1,
+        },
       },
     });
 
@@ -70,6 +74,17 @@ class UsersTechnologiesRepository implements IUsersTechnologiesRepository {
     });
 
     return deletedUserTechnology;
+  }
+
+  public async deleteAllContentCreatorTechnology(
+    technology_id: string,
+  ): Promise<void> {
+    await prisma.userTechnology.deleteMany({
+      where: {
+        technology_id,
+        current_layer: null,
+      },
+    });
   }
 }
 

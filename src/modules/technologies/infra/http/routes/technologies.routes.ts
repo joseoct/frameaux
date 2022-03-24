@@ -15,10 +15,10 @@ const upload = multer(uploadConfig.multer);
 technologiesRouter.get('/', technologiesController.index);
 
 technologiesRouter.get(
-  '/:id',
+  '/:technology_id',
   celebrate({
     [Segments.PARAMS]: {
-      id: Joi.string().uuid().required(),
+      technology_id: Joi.string().uuid().required(),
     },
   }),
   technologiesController.show,
@@ -36,14 +36,26 @@ technologiesRouter.post(
 );
 
 technologiesRouter.put(
-  '/',
+  '/:technology_id',
   celebrate({
+    [Segments.PARAMS]: {
+      technology_id: Joi.string().uuid().required(),
+    },
     [Segments.BODY]: {
-      technology_id: Joi.string().required().uuid(),
       name: Joi.string().required(),
     },
   }),
   technologiesController.update,
+);
+
+technologiesRouter.delete(
+  '/:technology_id',
+  celebrate({
+    [Segments.PARAMS]: {
+      technology_id: Joi.string().uuid().required(),
+    },
+  }),
+  technologiesController.delete,
 );
 
 export default technologiesRouter;
