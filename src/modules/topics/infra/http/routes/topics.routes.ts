@@ -29,4 +29,21 @@ topicsRouter.delete(
   topicsController.delete,
 );
 
+topicsRouter.put(
+  '/:topic_id',
+  ensureAuthenticated,
+  ensureRole(['content_creator']),
+  celebrate({
+    [Segments.PARAMS]: {
+      topic_id: Joi.string().required(),
+    },
+    [Segments.BODY]: {
+      name: Joi.string().required(),
+      layer: Joi.number().required(),
+      explanation: Joi.string().required(),
+    },
+  }),
+  topicsController.update,
+);
+
 export default topicsRouter;

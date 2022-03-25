@@ -60,9 +60,9 @@ class CreateTopicService {
 
     if (
       parseFloat((maxLayerByLayer - Math.floor(maxLayerByLayer)).toFixed(1)) ===
-      0.9
+      0.3
     ) {
-      throw new AppError('The maximum topics per layer is nine');
+      throw new AppError('O máximo de tópicos por camada é 3');
     }
 
     const topic = await this.topicsRepository.create({

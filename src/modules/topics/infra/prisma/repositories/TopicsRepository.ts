@@ -131,6 +131,21 @@ class TopicsRepository implements ITopicsRepository {
       },
     });
   }
+
+  public async update(topic: Topic): Promise<Topic> {
+    const updatedTopic = await prisma.topic.update({
+      where: {
+        id: topic.id,
+      },
+      data: {
+        name: topic.name,
+        explanation: topic.explanation,
+        layer: topic.layer,
+      },
+    });
+
+    return updatedTopic;
+  }
 }
 
 export default TopicsRepository;

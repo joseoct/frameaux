@@ -20,4 +20,5 @@ export default interface ITopicsRepository {
     layer: number,
     technology_id: string,
   ): Promise<void>;
+  update(topic: Topic): Promise<Topic | undefined>;
 }
