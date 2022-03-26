@@ -9,6 +9,9 @@ class LevelsRepository implements ILevelsRepository {
       where: {
         topic_id,
       },
+      include: {
+        Exercise: true,
+      },
     });
 
     return level;

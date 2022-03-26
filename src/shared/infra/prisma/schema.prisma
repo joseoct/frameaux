@@ -8,94 +8,116 @@ datasource db {
 }
 
 model User {
-  id String @id @default(uuid())
-
-  name     String
-  email    String @unique
-  password String
-  role_id  String
-
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-
-  role Role @relation(fields: [role_id], onDelete: Cascade, onUpdate: Cascade,references: [id])
-
+  id             String           @id @default(uuid())
+  name           String
+  email          String           @unique
+  password       String
+  role_id        String
+  created_at     DateTime         @default(now())
+  updated_at     DateTime         @updatedAt
+  role           Role             @relation(fields: [role_id], references: [id], onDelete: Cascade)
   UserTechnology UserTechnology[]
 
   @@map("users")
 }
 
 model Role {
-  id   String @id @default(uuid())
-  name String @unique
-
+  id         String   @id @default(uuid())
+  name       String   @unique
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-
-  users User[]
+  users      User[]
 
   @@map("roles")
 }
 
 model Technology {
-  id String @id @default(uuid())
-
-  name            String @unique
+  id               String           @id @default(uuid())
+  name             String           @unique
   technology_image String
-
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-
-  UserTechnology UserTechnology[]
-  Topic         Topic[]
+  created_at       DateTime         @default(now())
+  updated_at       DateTime         @updatedAt
+  Topic            Topic[]
+  UserTechnology   UserTechnology[]
 
   @@map("technologies")
 }
 
 model UserTechnology {
-  id String @id @default(uuid())
-
+  id            String     @id @default(uuid())
   user_id       String
-  technology_id  String
+  technology_id String
   current_layer Int?
-
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-
-  user      User      @relation(fields: [user_id], onDelete: Cascade, onUpdate: Cascade,references: [id])
-  technology Technology @relation(fields: [technology_id], onDelete: Cascade, onUpdate: Cascade,references: [id])
+  created_at    DateTime   @default(now())
+  updated_at    DateTime   @updatedAt
+  technology    Technology @relation(fields: [technology_id], references: [id], onDelete: Cascade)
+  user          User       @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map("users_technologies")
 }
 
 model Topic {
-  id String @id @default(uuid())
-
-  name         String
-  explanation  String
+  id            String     @id @default(uuid())
+  name          String
+  explanation   String
   technology_id String
-  layer        Float
-
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-
-  Level Level[]
-
-  technology Technology @relation(fields: [technology_id], onDelete: Cascade, onUpdate: Cascade,references: [id])
+  layer         Float
+  created_at    DateTime   @default(now())
+  updated_at    DateTime   @updatedAt
+  technology    Technology @relation(fields: [technology_id], references: [id], onDelete: Cascade)
+  Level         Level[]
 
   @@map("topics")
 }
 
 model Level {
-  id String @id @default(uuid())
-
+  id         String     @id @default(uuid())
   difficulty Int
-  topic_id String
-
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-
-  topic Topic @relation(fields: [topic_id], onDelete: Cascade, onUpdate: Cascade,references: [id])
+  topic_id   String
+  created_at DateTime   @default(now())
+  updated_at DateTime   @updatedAt
+  topic      Topic      @relation(fields: [topic_id], references: [id], onDelete: Cascade)
+  Exercise   Exercise[]
 
   @@map("levels")
+}
+
+model Exercise {
+  id         String   @id @default(uuid())
+  question   String
+  level_id   String
+  type       String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  level      Level    @relation(fields: [level_id], references: [id], onDelete: Cascade)
+
+  @@map("exercises")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model Alternative {
+  id            String @id @default(uuid())
+  question      String
+  level_id      String
+  type          String
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+  answer        String[]
+  correct_answer String
+
+  @@map("alternatives")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model Sequency {
+  id            String  @id  @default(uuid())
+  question      String
+  level_id      String
+  type          String
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+  answer        String[]
+  correct_answer String[]
+
+  @@map("sequencies")
 }
