@@ -3,7 +3,7 @@ import { container } from 'tsyringe';
 import CreateLevelService from '@modules/levels/services/CreateLevelService';
 import FindAllLevelsByTopicService from '@modules/levels/services/FindAllLevelsByTopicService';
 
-export default class LevelsController {
+export default class LevelsByTopicController {
   public async create(request: Request, response: Response): Promise<Response> {
     try {
       const { topic_id } = request.params;

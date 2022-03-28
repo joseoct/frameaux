@@ -21,6 +21,9 @@ import TopicsRepository from '@modules/topics/infra/prisma/repositories/TopicsRe
 import ILevelsRepository from '@modules/levels/repositories/ILevelsRepository';
 import LevelsRepository from '@modules/levels/infra/prisma/repositories/LevelsRepository';
 
+import IExercisesRepository from '@modules/exercises/repositories/IExercisesRepository';
+import ExercisesRepository from '@modules/exercises/infra/prisma/repositories/ExercisesRepository';
+
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
   UsersRepository,
@@ -49,4 +52,9 @@ container.registerSingleton<ITopicsRepository>(
 container.registerSingleton<ILevelsRepository>(
   'LevelsRepository',
   LevelsRepository,
+);
+
+container.registerSingleton<IExercisesRepository>(
+  'ExercisesRepository',
+  ExercisesRepository,
 );

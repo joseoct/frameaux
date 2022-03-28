@@ -45,6 +45,16 @@ class LevelsRepository implements ILevelsRepository {
 
     return result;
   }
+
+  public async findById(level_id: string): Promise<Level> {
+    const result = await prisma.level.findUnique({
+      where: {
+        id: level_id,
+      },
+    });
+
+    return result;
+  }
 }
 
 export default LevelsRepository;

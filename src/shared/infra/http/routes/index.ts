@@ -20,6 +20,9 @@ import dashboardsRouter from '@modules/dashboard/infra/http/routes/dashboards.ro
 import levelsByTopicRouter from '@modules/levels/infra/http/routes/levelsByTopic.routes';
 import topicsByTechnologiesRouter from '@modules/topics/infra/http/routes/topicsByTechnology.routes';
 
+import exercisesRouter from '@modules/exercises/infra/http/routes/alternativeExercises.routes';
+import levelsRouter from '@modules/levels/infra/http/routes/levels.routes';
+
 const routes = Router();
 
 routes.use('/users', usersRouter);
@@ -38,7 +41,10 @@ routes.use('/user/technologies', technologiesByUserRouter);
 routes.use('/topics', topicsRouter);
 routes.use('/technologies', topicsByTechnologiesRouter);
 
-routes.use('/technologies/topics/', levelsByTopicRouter);
+routes.use('/levels', levelsRouter);
+routes.use('/technologies/topics', levelsByTopicRouter);
+
+routes.use('/technologies/topics/levels', exercisesRouter);
 
 routes.use('/students-technologies', studentsTechnologiesRouter);
 routes.use('/content-creators-technologies', contentCreatorsTechnologiesRouter);
