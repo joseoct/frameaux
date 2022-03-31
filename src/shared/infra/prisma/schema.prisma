@@ -17,6 +17,7 @@ model User {
   updated_at     DateTime         @updatedAt
   role           Role             @relation(fields: [role_id], references: [id], onDelete: Cascade)
   UserTechnology UserTechnology[]
+  UserTopic      UserTopic[]
 
   @@map("users")
 }
@@ -65,9 +66,24 @@ model Topic {
   created_at    DateTime   @default(now())
   updated_at    DateTime   @updatedAt
   technology    Technology @relation(fields: [technology_id], references: [id], onDelete: Cascade)
+  UserTopic     UserTopic[]
   Level         Level[]
 
   @@map("topics")
+}
+
+model UserTopic {
+  id            String     @id @default(uuid())
+  user_id       String
+  topic_id      String
+  current_difficulty Int
+  created_at    DateTime   @default(now())
+  updated_at    DateTime   @updatedAt
+
+  topic    Topic @relation(fields: [topic_id], references: [id], onDelete: Cascade)
+  user          User       @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("users_topics")
 }
 
 model Level {
