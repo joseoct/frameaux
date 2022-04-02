@@ -10,10 +10,20 @@ const studentTechnologyController = new StudentTechnologyController();
 
 studentsTechnologiesRouter.use(ensureAuthenticated);
 
-studentsTechnologiesRouter.post(
-  '/',
+studentsTechnologiesRouter.get(
+  '/:technology_id',
   celebrate({
-    [Segments.BODY]: {
+    [Segments.PARAMS]: {
+      technology_id: Joi.string().required(),
+    },
+  }),
+  studentTechnologyController.show,
+);
+
+studentsTechnologiesRouter.post(
+  '/:technology_id',
+  celebrate({
+    [Segments.PARAMS]: {
       technology_id: Joi.string().required(),
     },
   }),
@@ -21,9 +31,9 @@ studentsTechnologiesRouter.post(
 );
 
 studentsTechnologiesRouter.patch(
-  '/',
+  '/:technology_id',
   celebrate({
-    [Segments.BODY]: {
+    [Segments.PARAMS]: {
       technology_id: Joi.string().required(),
     },
   }),
@@ -31,9 +41,9 @@ studentsTechnologiesRouter.patch(
 );
 
 studentsTechnologiesRouter.delete(
-  '/',
+  '/:technology_id',
   celebrate({
-    [Segments.BODY]: {
+    [Segments.PARAMS]: {
       technology_id: Joi.string().required(),
     },
   }),
