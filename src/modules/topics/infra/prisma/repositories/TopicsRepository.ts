@@ -54,6 +54,7 @@ class TopicsRepository implements ITopicsRepository {
 
   public async findAllByTechnologyId(
     technology_id: string,
+    user_id: string,
   ): Promise<Topic[] | undefined> {
     const topics = await prisma.topic.findMany({
       where: {
@@ -61,6 +62,16 @@ class TopicsRepository implements ITopicsRepository {
       },
       orderBy: {
         layer: 'asc',
+      },
+      include: {
+        UserTopic: {
+          where: {
+            user_id,
+          },
+          select: {
+            current_difficulty: true,
+          },
+        },
       },
     });
 

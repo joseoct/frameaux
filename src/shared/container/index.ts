@@ -15,6 +15,9 @@ import TechnologiesRepository from '@modules/technologies/infra/prisma/repositor
 import IUsersTechnologiesRepository from '@modules/users_technologies/repositories/IUsersTechnologiesRepository';
 import UsersTechnologiesRepository from '@modules/users_technologies/infra/prisma/repositories/UsersTechnologiesRepository';
 
+import IUsersTopicsRepository from '@modules/users_topics/repositories/IUsersTopicsRepository';
+import UsersTopicsRepository from '@modules/users_topics/infra/prisma/repositories/UsersTopicsRepository';
+
 import ITopicsRepository from '@modules/topics/repositories/ITopicsRepository';
 import TopicsRepository from '@modules/topics/infra/prisma/repositories/TopicsRepository';
 
@@ -57,4 +60,9 @@ container.registerSingleton<ILevelsRepository>(
 container.registerSingleton<IExercisesRepository>(
   'ExercisesRepository',
   ExercisesRepository,
+);
+
+container.registerSingleton<IUsersTopicsRepository>(
+  'UsersTopicsRepository',
+  UsersTopicsRepository,
 );

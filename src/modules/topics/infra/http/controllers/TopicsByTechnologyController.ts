@@ -27,12 +27,14 @@ export default class TopicsController {
   public async index(request: Request, response: Response): Promise<Response> {
     try {
       const { technology_id } = request.params;
+      const student_id = request.user.id;
 
       const listTopicsByTechnology = container.resolve(
         ListTopicsByTechnologyService,
       );
 
       const layerTopics = await listTopicsByTechnology.execute({
+        student_id,
         technology_id,
       });
 

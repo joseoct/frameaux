@@ -5,5 +5,9 @@ export default interface ILevelsRepository {
   findMaxDifficultyByTopicId(topic_id: string): Promise<number>;
   create(data: ICreateLevelDTO): Promise<Level>;
   findAllByTopic(topic_id: string): Promise<Level[] | undefined>;
+  findByTopicIdAndDifficulty(
+    topic_id: string,
+    difficulty: number,
+  ): Promise<Level | undefined>;
   findById(level_id: string): Promise<Level | undefined>;
 }

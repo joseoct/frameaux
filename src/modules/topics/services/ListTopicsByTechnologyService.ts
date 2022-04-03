@@ -4,6 +4,7 @@ import ITopicsRepository from '../repositories/ITopicsRepository';
 
 interface IRequest {
   technology_id: string;
+  student_id: string;
 }
 
 @injectable()
@@ -13,13 +14,17 @@ class ListTopicsService {
     private topicsRepository: ITopicsRepository,
   ) {}
 
-  public async execute({ technology_id }: IRequest): Promise<Topic[][]> {
+  public async execute({
+    technology_id,
+    student_id,
+  }: IRequest): Promise<Topic[][]> {
     const maxLayer = await this.topicsRepository.findMaxLayerByTechnologyId(
       technology_id,
     );
 
     const topics = await this.topicsRepository.findAllByTechnologyId(
       technology_id,
+      student_id,
     );
 
     const layerTopics = topics.reduce<Topic[][]>((acc, topic) => {

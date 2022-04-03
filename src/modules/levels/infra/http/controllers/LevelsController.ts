@@ -7,9 +7,9 @@ export default class LevelsController {
     try {
       const { level_id } = request.params;
 
-      const createLevel = container.resolve(ShowLevelService);
+      const showLevelService = container.resolve(ShowLevelService);
 
-      const levelsByTopic = await createLevel.execute({
+      const levelsByTopic = await showLevelService.execute({
         level_id,
       });
 
