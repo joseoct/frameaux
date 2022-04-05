@@ -1,6 +1,6 @@
 import { injectable, inject } from 'tsyringe';
 // import AppError from '@shared/errors/AppError';
-import { Alternative } from '@prisma/client';
+import { Alternative, Sequency } from '@prisma/client';
 import ILevelsRepository from '@modules/levels/repositories/ILevelsRepository';
 import IExercisesRepository from '../repositories/IExercisesRepository';
 
@@ -22,7 +22,7 @@ class ListExercisesByTopicAndDifficulty {
   public async execute({
     topic_id,
     difficulty,
-  }: IRequest): Promise<Alternative[]> {
+  }: IRequest): Promise<(Alternative | Sequency)[]> {
     const level = await this.levelsRepository.findByTopicIdAndDifficulty(
       topic_id,
       difficulty,
@@ -32,7 +32,13 @@ class ListExercisesByTopicAndDifficulty {
       level.id,
     );
 
-    return alternativeExercises;
+    const sequencyExercises = await this.exercisesRepository.listSequencyExercisesByLevel(
+      level.id,
+    );
+
+    const exercises = [...sequencyExercises, ...alternativeExercises];
+
+    return exercises;
   }
 }
 

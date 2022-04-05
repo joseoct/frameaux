@@ -14,6 +14,18 @@ class ExercisesRepository implements IExercisesRepository {
     return result;
   }
 
+  public async listSequencyExercisesByLevel(
+    level_id: string,
+  ): Promise<Sequency[]> {
+    const result = await prisma.sequency.findMany({
+      where: {
+        level_id,
+      },
+    });
+
+    return result;
+  }
+
   public async listAlternativeExercisesByLevel(
     level_id: string,
   ): Promise<Alternative[]> {

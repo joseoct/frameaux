@@ -12,5 +12,8 @@ export default interface IExercisesRepository {
   createAlternative(data: ICreateAlternativeExerciseDTO): Promise<Alternative>;
 
   // Sequency exercises
+  listSequencyExercisesByLevel(
+    level_id: string,
+  ): Promise<Sequency[] | undefined>;
   createSequency(data: ICreateSequencyExerciseDTO): Promise<Sequency>;
 }
