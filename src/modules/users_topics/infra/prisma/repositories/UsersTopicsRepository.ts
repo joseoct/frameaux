@@ -38,6 +38,7 @@ class UsersTopicsRepository implements IUsersTopicsRepository {
       data: {
         ...usersTopicData,
         current_difficulty: 1,
+        attention: 0,
       },
     });
 

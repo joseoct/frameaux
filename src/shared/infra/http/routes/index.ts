@@ -26,6 +26,7 @@ import levelsRouter from '@modules/levels/infra/http/routes/levels.routes';
 
 import exercisesByTopicAndDifficulty from '@modules/exercises/infra/http/routes/exercisesByTopicAndDifficulty.routes';
 import alternativeExercisesRouter from '@modules/exercises/infra/http/routes/alternativeExercises.routes';
+import sequencyExercisesRouter from '@modules/exercises/infra/http/routes/sequencyExercises.routes';
 
 const routes = Router();
 
@@ -50,6 +51,7 @@ routes.use('/technologies/topics', levelsByTopicRouter);
 
 routes.use('/technologies/topics', exercisesByTopicAndDifficulty);
 routes.use('/technologies/topics/levels', alternativeExercisesRouter);
+routes.use('/technologies/topics/levels', sequencyExercisesRouter);
 
 routes.use('/students-technologies', studentsTechnologiesRouter);
 routes.use('/content-creators-technologies', contentCreatorsTechnologiesRouter);

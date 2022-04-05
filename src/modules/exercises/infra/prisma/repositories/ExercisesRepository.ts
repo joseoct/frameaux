@@ -1,10 +1,19 @@
 import IExercisesRepository from '@modules/exercises/repositories/IExercisesRepository';
 import ICreateAlternativeExerciseDTO from '@modules/exercises/dtos/ICreateAlternativeExerciseDTO';
-import { PrismaClient, Alternative } from '@prisma/client';
+import { PrismaClient, Alternative, Sequency } from '@prisma/client';
+import ICreateSequencyExerciseDTO from '@modules/exercises/dtos/ICreateSequencyExerciseDTO';
 
 const prisma = new PrismaClient();
 
 class ExercisesRepository implements IExercisesRepository {
+  public async createSequency(
+    data: ICreateSequencyExerciseDTO,
+  ): Promise<Sequency> {
+    const result = await prisma.sequency.create({ data });
+
+    return result;
+  }
+
   public async listAlternativeExercisesByLevel(
     level_id: string,
   ): Promise<Alternative[]> {
@@ -18,9 +27,9 @@ class ExercisesRepository implements IExercisesRepository {
   }
 
   public async createAlternative(
-    exerciseData: ICreateAlternativeExerciseDTO,
+    data: ICreateAlternativeExerciseDTO,
   ): Promise<Alternative> {
-    const result = await prisma.alternative.create({ data: exerciseData });
+    const result = await prisma.alternative.create({ data });
 
     return result;
   }

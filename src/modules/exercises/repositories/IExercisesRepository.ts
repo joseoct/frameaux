@@ -1,5 +1,6 @@
-import { Alternative } from '@prisma/client';
-import ICreateExerciseDTO from '../dtos/ICreateAlternativeExerciseDTO';
+import { Alternative, Sequency } from '@prisma/client';
+import ICreateAlternativeExerciseDTO from '../dtos/ICreateAlternativeExerciseDTO';
+import ICreateSequencyExerciseDTO from '../dtos/ICreateSequencyExerciseDTO';
 
 export default interface IExercisesRepository {
   // All exercises
@@ -8,7 +9,8 @@ export default interface IExercisesRepository {
   listAlternativeExercisesByLevel(
     level_id: string,
   ): Promise<Alternative[] | undefined>;
-  createAlternative(data: ICreateExerciseDTO): Promise<Alternative>;
+  createAlternative(data: ICreateAlternativeExerciseDTO): Promise<Alternative>;
 
-  // Complete exercises
+  // Sequency exercises
+  createSequency(data: ICreateSequencyExerciseDTO): Promise<Sequency>;
 }

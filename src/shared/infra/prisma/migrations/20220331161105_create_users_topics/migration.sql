@@ -10,6 +10,7 @@ CREATE TABLE "users_topics" (
     "user_id" TEXT NOT NULL,
     "topic_id" TEXT NOT NULL,
     "current_difficulty" INTEGER NOT NULL,
+    "attention" INTEGER NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 
