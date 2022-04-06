@@ -4,6 +4,20 @@ import { Technology } from '@prisma/client';
 import { prisma } from '@shared/infra/database/prisma';
 
 class TechnologiesRepository implements ITechnologiesRepository {
+  public async findByTopicId(topicId: string): Promise<Technology> {
+    const technology = await prisma.technology.findFirst({
+      where: {
+        Topic: {
+          some: {
+            id: topicId,
+          },
+        },
+      },
+    });
+
+    return technology;
+  }
+
   public async findAllByUserId(userId: string): Promise<Technology[]> {
     const technologies = await prisma.technology.findMany({
       where: {

@@ -2,11 +2,15 @@ import { Topic } from '@prisma/client';
 import ICreateTopicDTO from '../dtos/ICreateTopicDTO';
 
 export default interface ITopicsRepository {
+  findByLayer(
+    topic_id: string,
+    layer: number,
+  ): Promise<(Topic & { UserTopic: { current_difficulty: number }[] })[]>;
   create(topicData: ICreateTopicDTO): Promise<Topic>;
   findAllByTechnologyId(
     technology_id: string,
-    user_id: string,
-  ): Promise<Topic[] | undefined>;
+    user_id?: string,
+  ): Promise<(Topic & { UserTopic: { current_difficulty: number }[] })[]>;
   findByTechnologyIdAndName(
     technology_id: string,
     name: string,

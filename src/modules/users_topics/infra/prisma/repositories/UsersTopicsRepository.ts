@@ -44,6 +44,27 @@ class UsersTopicsRepository implements IUsersTopicsRepository {
 
     return result;
   }
+
+  public async update(
+    userTopic_id: string,
+    attention: boolean,
+  ): Promise<UserTopic> {
+    const result = await prisma.userTopic.update({
+      where: {
+        id: userTopic_id,
+      },
+      data: {
+        current_difficulty: {
+          increment: 1,
+        },
+        attention: {
+          increment: attention ? 1 : 0,
+        },
+      },
+    });
+
+    return result;
+  }
 }
 
 export default UsersTopicsRepository;

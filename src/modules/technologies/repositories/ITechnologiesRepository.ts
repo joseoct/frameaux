@@ -2,6 +2,7 @@ import { Technology } from '@prisma/client';
 import ICreateTechnologyDTO from '../dtos/ICreateTechnologyDTO';
 
 export default interface ITechnologiesRepository {
+  findByTopicId(topicId: string): Promise<Technology>;
   create(data: ICreateTechnologyDTO): Promise<Technology>;
   update(data: Technology): Promise<Technology>;
   findById(technology_id: string): Promise<Technology>;

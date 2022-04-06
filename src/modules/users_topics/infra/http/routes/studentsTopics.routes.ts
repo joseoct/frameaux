@@ -28,4 +28,17 @@ studentsTopicsRouter.get(
   studentsTopicsController.show,
 );
 
+studentsTopicsRouter.patch(
+  '/:topic_id',
+  celebrate({
+    [Segments.PARAMS]: {
+      topic_id: Joi.string().uuid().required(),
+    },
+    [Segments.BODY]: {
+      attention: Joi.boolean(),
+    },
+  }),
+  studentsTopicsController.update,
+);
+
 export default studentsTopicsRouter;

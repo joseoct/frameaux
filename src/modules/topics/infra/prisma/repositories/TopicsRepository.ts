@@ -4,6 +4,29 @@ import { Topic } from '@prisma/client';
 import { prisma } from '@shared/infra/database/prisma';
 
 class TopicsRepository implements ITopicsRepository {
+  public async findByLayer(
+    topic_id: string,
+    layer: number,
+  ): Promise<(Topic & { UserTopic: { current_difficulty: number }[] })[]> {
+    const topicsByLayer = await prisma.topic.findMany({
+      where: {
+        layer: {
+          gt: layer,
+          lt: layer + 1,
+        },
+      },
+      include: {
+        UserTopic: {
+          select: {
+            current_difficulty: true,
+          },
+        },
+      },
+    });
+
+    return topicsByLayer;
+  }
+
   public async findLayersByLayer(
     technology_id: string,
     layer: number,
@@ -55,7 +78,7 @@ class TopicsRepository implements ITopicsRepository {
   public async findAllByTechnologyId(
     technology_id: string,
     user_id: string,
-  ): Promise<Topic[] | undefined> {
+  ): Promise<(Topic & { UserTopic: { current_difficulty: number }[] })[]> {
     const topics = await prisma.topic.findMany({
       where: {
         technology_id,
