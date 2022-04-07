@@ -2,8 +2,10 @@ import { Topic } from '@prisma/client';
 import ICreateTopicDTO from '../dtos/ICreateTopicDTO';
 
 export default interface ITopicsRepository {
+  findFirstFiveByTechnologyId(technology_id: string): Promise<string[]>;
   findByLayer(
     topic_id: string,
+    user_id: string,
     layer: number,
   ): Promise<(Topic & { UserTopic: { current_difficulty: number }[] })[]>;
   create(topicData: ICreateTopicDTO): Promise<Topic>;

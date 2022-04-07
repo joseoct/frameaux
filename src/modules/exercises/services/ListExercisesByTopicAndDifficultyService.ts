@@ -5,7 +5,7 @@ import ILevelsRepository from '@modules/levels/repositories/ILevelsRepository';
 import IExercisesRepository from '../repositories/IExercisesRepository';
 
 interface IRequest {
-  topic_id: string;
+  topic_id: string | null;
   difficulty: number;
 }
 

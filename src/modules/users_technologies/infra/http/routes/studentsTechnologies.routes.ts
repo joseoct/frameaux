@@ -31,10 +31,11 @@ studentsTechnologiesRouter.post(
 );
 
 studentsTechnologiesRouter.patch(
-  '/:technology_id',
+  '/:technology_id/:result',
   celebrate({
     [Segments.PARAMS]: {
       technology_id: Joi.string().required(),
+      result: Joi.number().required(),
     },
   }),
   studentTechnologyController.update,

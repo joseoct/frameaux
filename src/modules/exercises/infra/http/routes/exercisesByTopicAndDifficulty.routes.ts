@@ -12,8 +12,8 @@ exercisesByTopicAndDifficultyRouter.get(
   '/:topic_id/:difficulty',
   celebrate({
     [Segments.PARAMS]: {
-      topic_id: Joi.string().uuid().required(),
-      difficulty: Joi.string().required(),
+      topic_id: Joi.string().required(),
+      difficulty: Joi.number().required(),
     },
   }),
   exercisesByTopicAndDifficultyController.get,

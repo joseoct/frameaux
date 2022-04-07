@@ -4,8 +4,71 @@ import { Topic } from '@prisma/client';
 import { prisma } from '@shared/infra/database/prisma';
 
 class TopicsRepository implements ITopicsRepository {
+  public async findFirstFiveByTechnologyId(
+    technology_id: string,
+  ): Promise<string[]> {
+    const firstOfFirstLayer = await prisma.topic.findFirst({
+      where: {
+        technology_id,
+        layer: {
+          gt: 1,
+          lt: 2,
+        },
+      },
+    });
+
+    const firstOfSecondLayer = await prisma.topic.findFirst({
+      where: {
+        technology_id,
+        layer: {
+          gt: 2,
+          lt: 3,
+        },
+      },
+    });
+
+    const firstOfThirdLayer = await prisma.topic.findFirst({
+      where: {
+        technology_id,
+        layer: {
+          gt: 3,
+          lt: 4,
+        },
+      },
+    });
+
+    const firstOfFourthLayer = await prisma.topic.findFirst({
+      where: {
+        technology_id,
+        layer: {
+          gt: 4,
+          lt: 5,
+        },
+      },
+    });
+
+    const firstOfFifthLayer = await prisma.topic.findFirst({
+      where: {
+        technology_id,
+        layer: {
+          gt: 5,
+          lt: 6,
+        },
+      },
+    });
+
+    return [
+      firstOfFirstLayer.id,
+      firstOfSecondLayer.id,
+      firstOfThirdLayer.id,
+      firstOfFourthLayer.id,
+      firstOfFifthLayer.id,
+    ];
+  }
+
   public async findByLayer(
     topic_id: string,
+    user_id: string,
     layer: number,
   ): Promise<(Topic & { UserTopic: { current_difficulty: number }[] })[]> {
     const topicsByLayer = await prisma.topic.findMany({
@@ -17,6 +80,9 @@ class TopicsRepository implements ITopicsRepository {
       },
       include: {
         UserTopic: {
+          where: {
+            user_id,
+          },
           select: {
             current_difficulty: true,
           },

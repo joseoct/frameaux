@@ -54,6 +54,7 @@ class UpdateStudentTopicService {
 
     const topicsByLayer = await this.topicsRepository.findByLayer(
       topic_id,
+      student_id,
       UserTechnology.current_layer,
     );
 
@@ -66,7 +67,7 @@ class UpdateStudentTopicService {
     }, true);
 
     if (goToNextLayer) {
-      await this.usersTechnologiesRepository.updateCurrentLayer(
+      await this.usersTechnologiesRepository.incrementByOneCurrentLayer(
         UserTechnology.id,
       );
     }

@@ -4,6 +4,19 @@ import { Level } from '@prisma/client';
 import { prisma } from '@shared/infra/database/prisma';
 
 class LevelsRepository implements ILevelsRepository {
+  public async findLastLevelsByTopicId(topic_ids: string[]): Promise<Level[]> {
+    const result = await prisma.level.findMany({
+      where: {
+        topic_id: {
+          in: topic_ids,
+        },
+        difficulty: 3,
+      },
+    });
+
+    return result;
+  }
+
   public async findByTopicIdAndDifficulty(
     topic_id: string,
     difficulty: number,

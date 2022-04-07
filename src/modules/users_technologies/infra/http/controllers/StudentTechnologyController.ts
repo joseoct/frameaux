@@ -50,7 +50,7 @@ export default class StudentTechnologyController {
   public async update(request: Request, response: Response): Promise<Response> {
     try {
       const student_id = request.user.id;
-      const { technology_id } = request.params;
+      const { technology_id, result } = request.params;
 
       const increaseCurrentLayerOfUserTechnology = container.resolve(
         IncreaseCurrentLayerOfStudentTechnologyService,
@@ -60,6 +60,7 @@ export default class StudentTechnologyController {
         {
           user_id: student_id,
           technology_id,
+          result: Number(result),
         },
       );
 

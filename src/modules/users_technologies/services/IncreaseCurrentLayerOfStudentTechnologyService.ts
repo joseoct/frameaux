@@ -8,6 +8,7 @@ import IUsersTechnologiesRepository from '../repositories/IUsersTechnologiesRepo
 interface IRequest {
   user_id: string;
   technology_id: string;
+  result: number;
 }
 
 @injectable()
@@ -20,14 +21,16 @@ class CreateStudentTechnologyService {
   public async execute({
     user_id,
     technology_id,
+    result,
   }: IRequest): Promise<UserTechnology> {
     const userTechnology = await this.usersTechnologiesRepository.findByUserIdTechnologyId(
       user_id,
       technology_id,
     );
 
-    const userTechnologyWithCurrentLayerIncreased = await this.usersTechnologiesRepository.updateCurrentLayer(
+    const userTechnologyWithCurrentLayerIncreased = await this.usersTechnologiesRepository.incrementByTestCurrentLayer(
       userTechnology.id,
+      result,
     );
 
     return userTechnologyWithCurrentLayerIncreased;

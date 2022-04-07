@@ -49,7 +49,23 @@ class UsersTechnologiesRepository implements IUsersTechnologiesRepository {
     return userTechnology;
   }
 
-  public async updateCurrentLayer(
+  public async incrementByTestCurrentLayer(
+    userTechnology_id: string,
+    result: number,
+  ): Promise<UserTechnology> {
+    const updatedUserTechnology = await prisma.userTechnology.update({
+      where: {
+        id: userTechnology_id,
+      },
+      data: {
+        current_layer: result,
+      },
+    });
+
+    return updatedUserTechnology;
+  }
+
+  public async incrementByOneCurrentLayer(
     userTechnology_id: string,
   ): Promise<UserTechnology> {
     const updatedUserTechnology = await prisma.userTechnology.update({
