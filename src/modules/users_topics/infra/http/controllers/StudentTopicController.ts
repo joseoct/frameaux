@@ -8,7 +8,7 @@ export default class StudentTopicController {
   public async update(request: Request, response: Response): Promise<Response> {
     try {
       const { topic_id } = request.params;
-      const { attention } = request.body;
+      const { attention, current_difficulty } = request.body;
       const student_id = request.user.id;
 
       const updateStudentTopicService = container.resolve(
@@ -19,6 +19,7 @@ export default class StudentTopicController {
         student_id,
         topic_id,
         attention,
+        current_difficulty,
       });
 
       return response.json(users_topic);

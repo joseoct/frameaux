@@ -6,6 +6,39 @@ import ICreateSequencyExerciseDTO from '@modules/exercises/dtos/ICreateSequencyE
 const prisma = new PrismaClient();
 
 class ExercisesRepository implements IExercisesRepository {
+  public async showRandomByLevelId(
+    level_id: string,
+  ): Promise<Alternative | Sequency> {
+    const randomExercise = await prisma.exercise.findFirst({
+      where: {
+        level_id,
+      },
+      select: {
+        level: {
+          include: {
+            topic: {
+              select: {
+                id: true,
+              },
+            },
+          },
+        },
+        id: true,
+        type: true,
+      },
+    });
+
+    const exercise = await prisma[randomExercise.type].findUnique({
+      where: {
+        id: randomExercise.id,
+      },
+    });
+
+    exercise.topic_id = randomExercise.level.topic.id;
+
+    return exercise;
+  }
+
   public async createSequency(
     data: ICreateSequencyExerciseDTO,
   ): Promise<Sequency> {

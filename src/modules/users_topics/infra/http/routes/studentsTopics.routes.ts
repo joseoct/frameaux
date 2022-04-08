@@ -35,7 +35,8 @@ studentsTopicsRouter.patch(
       topic_id: Joi.string().uuid().required(),
     },
     [Segments.BODY]: {
-      attention: Joi.boolean(),
+      current_difficulty: Joi.string(),
+      attention: Joi.number().required(),
     },
   }),
   studentsTopicsController.update,

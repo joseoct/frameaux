@@ -9,7 +9,8 @@ import IUsersTopicsRepository from '../repositories/IUsersTopicsRepository';
 interface IRequest {
   student_id: string;
   topic_id: string;
-  attention?: boolean;
+  attention: number;
+  current_difficulty?: 'increase' | 'decrease';
 }
 
 @injectable()
@@ -32,6 +33,7 @@ class UpdateStudentTopicService {
     student_id,
     topic_id,
     attention,
+    current_difficulty,
   }: IRequest): Promise<UserTopic> {
     const userTopic = await this.usersTopicsRepository.findByUserIdAndTopicId(
       student_id,
@@ -41,6 +43,7 @@ class UpdateStudentTopicService {
     const users_topic = await this.usersTopicsRepository.update(
       userTopic.id,
       attention,
+      current_difficulty,
     );
 
     const technology = await this.technologiesRepository.findByTopicId(
@@ -59,7 +62,10 @@ class UpdateStudentTopicService {
     );
 
     const goToNextLayer = topicsByLayer.reduce((acc, topic) => {
-      if (topic.UserTopic[0]?.current_difficulty < 4) {
+      if (
+        !topic.UserTopic[0]?.current_difficulty ||
+        topic.UserTopic[0]?.current_difficulty < 4
+      ) {
         acc = false;
       }
 

@@ -4,6 +4,40 @@ import { Topic } from '@prisma/client';
 import { prisma } from '@shared/infra/database/prisma';
 
 class TopicsRepository implements ITopicsRepository {
+  public async findFourLayersBehindByTechnologyId(
+    layer: number,
+    technology_id: string,
+  ): Promise<Topic[]> {
+    const topics = await prisma.topic.findMany({
+      where: {
+        technology_id,
+        layer: {
+          gt: Math.floor(layer - 4),
+          lt: Math.floor(layer - 3),
+        },
+      },
+    });
+
+    return topics;
+  }
+
+  public async findTwoLayersBehindByTechnologyId(
+    layer: number,
+    technology_id: string,
+  ): Promise<Topic[]> {
+    const topics = await prisma.topic.findMany({
+      where: {
+        technology_id,
+        layer: {
+          gt: Math.floor(layer - 2),
+          lt: Math.floor(layer - 1),
+        },
+      },
+    });
+
+    return topics;
+  }
+
   public async findFirstFiveByTechnologyId(
     technology_id: string,
   ): Promise<string[]> {

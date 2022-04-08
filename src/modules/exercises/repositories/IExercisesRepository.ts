@@ -4,6 +4,7 @@ import ICreateSequencyExerciseDTO from '../dtos/ICreateSequencyExerciseDTO';
 
 export default interface IExercisesRepository {
   // All exercises
+  showRandomByLevelId(level_id: string): Promise<Alternative | Sequency>;
 
   // Alternative exercises
   listAlternativeExercisesByLevel(

@@ -2,6 +2,14 @@ import { Topic } from '@prisma/client';
 import ICreateTopicDTO from '../dtos/ICreateTopicDTO';
 
 export default interface ITopicsRepository {
+  findTwoLayersBehindByTechnologyId(
+    layer: number,
+    technology_id: string,
+  ): Promise<Topic[]>;
+  findFourLayersBehindByTechnologyId(
+    layer: number,
+    technology_id: string,
+  ): Promise<Topic[]>;
   findFirstFiveByTechnologyId(technology_id: string): Promise<string[]>;
   findByLayer(
     topic_id: string,

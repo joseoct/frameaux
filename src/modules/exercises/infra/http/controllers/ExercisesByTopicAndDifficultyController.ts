@@ -6,6 +6,7 @@ export default class AlternativeExercisesController {
   public async get(request: Request, response: Response): Promise<Response> {
     try {
       const { topic_id, difficulty } = request.params;
+      const student_id = request.user.id;
 
       const listExercisesByTopicAndDifficultyService = container.resolve(
         ListExercisesByTopicAndDifficultyService,
@@ -14,6 +15,7 @@ export default class AlternativeExercisesController {
       const exercise = await listExercisesByTopicAndDifficultyService.execute({
         topic_id,
         difficulty: Number(difficulty),
+        student_id,
       });
 
       return response.json(exercise);

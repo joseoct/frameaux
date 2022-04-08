@@ -47,19 +47,47 @@ class UsersTopicsRepository implements IUsersTopicsRepository {
 
   public async update(
     userTopic_id: string,
-    attention: boolean,
+    attention: number,
+    current_difficulty: 'increase' | 'decrease',
   ): Promise<UserTopic> {
+    if (current_difficulty === 'increase') {
+      const result = await prisma.userTopic.update({
+        where: {
+          id: userTopic_id,
+        },
+        data: {
+          current_difficulty: {
+            increment: 1,
+          },
+          attention,
+        },
+      });
+
+      return result;
+    }
+
+    if (current_difficulty === 'decrease') {
+      const result = await prisma.userTopic.update({
+        where: {
+          id: userTopic_id,
+        },
+        data: {
+          current_difficulty: {
+            decrement: 1,
+          },
+          attention,
+        },
+      });
+
+      return result;
+    }
+
     const result = await prisma.userTopic.update({
       where: {
         id: userTopic_id,
       },
       data: {
-        current_difficulty: {
-          increment: 1,
-        },
-        attention: {
-          increment: attention ? 1 : 0,
-        },
+        attention,
       },
     });
 
