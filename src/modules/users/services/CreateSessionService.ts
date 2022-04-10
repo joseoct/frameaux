@@ -5,6 +5,7 @@ import AppError from '@shared/errors/AppError';
 
 import { User } from '@prisma/client';
 import authConfig from '@config/auth';
+import IRolesRepository from '@modules/roles/repositories/IRolesRepository';
 import IUsersRepository from '../repositories/IUsersRepository';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 
@@ -30,6 +31,9 @@ class CreateSessionService {
 
     @inject('HashProvider')
     private hashProvider: IHashProvider,
+
+    @inject('RolesRepository')
+    private rolesRepository: IRolesRepository,
   ) {}
 
   public async execute({
@@ -37,6 +41,8 @@ class CreateSessionService {
     password,
   }: IRequest): Promise<{ user: User; token: string }> {
     const user = await this.usersRepository.findByEmail(email);
+
+    const role = await this.rolesRepository.findById(user.role_id);
 
     if (!user) {
       throw new AppError('Incorrect email/password combination.', 401);
@@ -60,10 +66,16 @@ class CreateSessionService {
 
     const { secret, expiresIn } = authConfig.jwt;
 
-    const token = sign({}, secret, {
-      subject: user.id,
-      expiresIn,
-    });
+    const token = sign(
+      {
+        role: role.name,
+      },
+      secret,
+      {
+        subject: user.id,
+        expiresIn,
+      },
+    );
 
     delete user.password;
 
