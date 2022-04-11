@@ -1,11 +1,21 @@
 import IExercisesRepository from '@modules/exercises/repositories/IExercisesRepository';
 import ICreateAlternativeExerciseDTO from '@modules/exercises/dtos/ICreateAlternativeExerciseDTO';
-import { PrismaClient, Alternative, Sequency } from '@prisma/client';
+import { PrismaClient, Alternative, Sequency, Exercise } from '@prisma/client';
 import ICreateSequencyExerciseDTO from '@modules/exercises/dtos/ICreateSequencyExerciseDTO';
 
 const prisma = new PrismaClient();
 
 class ExercisesRepository implements IExercisesRepository {
+  public async delete(exercise_id: string): Promise<Exercise> {
+    const result = await prisma.exercise.delete({
+      where: {
+        id: exercise_id,
+      },
+    });
+
+    return result;
+  }
+
   public async showRandomByLevelId(
     level_id: string,
   ): Promise<Alternative | Sequency> {
