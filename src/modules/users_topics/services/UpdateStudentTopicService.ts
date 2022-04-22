@@ -56,7 +56,7 @@ class UpdateStudentTopicService {
     );
 
     const topicsByLayer = await this.topicsRepository.findByLayer(
-      topic_id,
+      technology.id,
       student_id,
       UserTechnology.current_layer,
     );

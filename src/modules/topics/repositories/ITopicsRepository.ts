@@ -12,7 +12,7 @@ export default interface ITopicsRepository {
   ): Promise<Topic[]>;
   findFirstFiveByTechnologyId(technology_id: string): Promise<string[]>;
   findByLayer(
-    topic_id: string,
+    technology_id: string,
     user_id: string,
     layer: number,
   ): Promise<(Topic & { UserTopic: { current_difficulty: number }[] })[]>;

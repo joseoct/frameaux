@@ -101,12 +101,13 @@ class TopicsRepository implements ITopicsRepository {
   }
 
   public async findByLayer(
-    topic_id: string,
+    technology_id: string,
     user_id: string,
     layer: number,
   ): Promise<(Topic & { UserTopic: { current_difficulty: number }[] })[]> {
     const topicsByLayer = await prisma.topic.findMany({
       where: {
+        technology_id,
         layer: {
           gt: layer,
           lt: layer + 1,
