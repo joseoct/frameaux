@@ -32,7 +32,7 @@ class CreateDashboardService {
 
     const students = {
       label: 'Estudantes',
-      total: 9,
+      total: 15,
     };
 
     const totalTechnologies = await this.technologiesRepository.findTotalNumberTechnologies();
