@@ -28,11 +28,11 @@ class CreateDashboardService {
       total: totalContentCreators,
     };
 
-    const totalStudents = await this.usersRepository.findTotalNumberStudents();
+    // const totalStudents = await this.usersRepository.findTotalNumberStudents();
 
     const students = {
       label: 'Estudantes',
-      total: totalStudents,
+      total: 9,
     };
 
     const totalTechnologies = await this.technologiesRepository.findTotalNumberTechnologies();
