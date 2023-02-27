@@ -4,7 +4,8 @@
   </a>
 </p>
 
-<p align="center">Plataforma para auxiliar o aprendizado de tecnologias multiplataforma para o desenvolvimento de dispositivos móveis.
+<p align="center">
+Meu trabalho de conclusão de curso para obter o diploma de bacharel em ciência da computação: <strong>Aplicativo para auxiliar o aprendizado de tecnologias multiplataforma(ReactNative, Flutter, Ionic) para o desenvolvimento de dispositivos móveis</strong> utilizando a metodologia de repetição espaçada e inspirado no aplicativo Duolingo.
 </p>
 
 ## Backend
