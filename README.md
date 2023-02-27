@@ -88,34 +88,38 @@ através de chamadas às rotas, que são associações entre um método HTTP, um
 URL e um método de um controlador responsável por processar a requisição e gerar
 uma resposta às aplicações clientes.
 
+table {
+    width:100%;
+}
+
 #### Rotas do backend
 Tipo | Rota | Cargos | Descrição
 --- | --- | --- | --- 
-GET | 1. /dashboard | Administrador | Retorna número de tecnologias, criadores de conteúdo e estudantes
-POST | 2. /content-creators | Administrador | Cria um criador de conteúdo
-GET | 3. /content-creators | Administrador | Lista criadores de conteúdoe tecnologias em que foram alocados.
-POST | 4. /students | - | Cria um estudante
-GET | 5. /profile | Administrador, criador de conteúdo, estudante | Retorna informações do usuário, incluindo seu cargo
-POST | 6. /sessions | Administrador, criador de conteúdo, estudante | Envia as credenciais de conexão, se forem validadas, retorna informações do usuário e um JWT válido
-POST | 7. /content-creators-technologies | Administrador | Cria uma tecnologia e aloca criadores de conteúdo à tecnologia criadaGET8. /content-creators-technologiesAdministradorLista todas as tecnologias e seus criadores de conteúdo responsáveis
-DELETE | 9. /technologies/:technology_id | Administrador | Deleta a tecnologia informada na rota e a relação com todos os usuários
-GET | 10. /user/technologies | Criador de conteúdo, estudante | Lista todas as tecnologias que fazem relação com o usuário
-POST | 11. /technologies/:technology_id | Criador de conteúdo | Cria um tópico que faz relação à tecnologia informada na rota
-GET | 12. /technologies/:technology_id/topics | Criador de conteúdo, estudante | Lista todos os tópicos que fazem relação à tecnologia informada na rota
-PUT | 13. /topics/:topic_id | Criador de conteúdo | Atualiza o tópico informado na rota
-DELETE | 14. /topics/:topic_id | Criador de conteúdo | Deleta o tópico informado na rota
-GET | 15. /technologies/topics/:topic_id/levels | Criador de conteúdo | Lista todos os níveis que fazem relação ao tópico informado na rota, incluindo a listagem de todos os exercícios por nível
-POST | 16. /technologies/topics/levels/:level_id/alternative-exercise | Criador de conteúdo | Cria um exercício de alternativas que faz relação ao nível informado na rota
-POST | 17. /technologies/topics/levels/:level_id/sequency-exercise | Criador de conteúdo | Cria um exercício de sequência que faz relação ao nível informado na rota
-DELETE | 18. /exercises/:exercise_id | Criador de conteúdo | Deleta o exercício informado na rota
-GET | 19. /technologies | Estudante | Lista todas as tecnologias
-POST | 20. /students-technologies/:technology_id | Estudante | Cria a relação do estudante com a tecnologia informada na rota e define sua camada atual como 1
-GET | 21. /technologies/:technology_id/test | Estudante | Retorna os exercícios do teste da tecnologia informada na rota
-PATCH | 22. /students-technologies/:technology_id/:currentExercise.layer | Estudante | Atualiza a camada atual do estudante na tecnologia informada na rota conforme seu desempenho no teste
-GET | 23. /students-technologies/:technology_id | Estudante | Retorna a camada atual e as coroas do estudante em relação à tecnologia informada na rota. Além disso retorna as coroas totais da tecnologia
-GET | 24. /technologies/topics/:topic_id/:difficulty | Estudante | Retorna todos os exercícios do nível cuja dificuldade é passada na e que é relacionado ao tópico informado
-POST | 25. /students-topics/:topic_id | Estudante | Cria a relação do estudante com o tópico informado na rota e define sua dificuldade atual como 1
-PATCH | 26. /students-topics/:topic_id | Estudante | Atualiza a dificuldade atual do estudante em relação ao tópico informado na rota conforme seu desempenho ao realizar exercícios de algum nível
+GET | 1. `/dashboard` | Administrador | Retorna número de tecnologias, criadores de conteúdo e estudantes
+POST | 2. `/content-creators` | Administrador | Cria um criador de conteúdo
+GET | 3. `/content-creators` | Administrador | Lista criadores de conteúdoe tecnologias em que foram alocados.
+POST | 4. `/students` | - | Cria um estudante
+GET | 5. `/profile` | Administrador, criador de conteúdo, estudante | Retorna informações do usuário, incluindo seu cargo
+POST | 6. `/sessions` | Administrador, criador de conteúdo, estudante | Envia as credenciais de conexão, se forem validadas, retorna informações do usuário e um JWT válido
+POST | 7. `/content-creators-technologies` | Administrador | Cria uma tecnologia e aloca criadores de conteúdo à tecnologia criadaGET8. /content-creators-technologiesAdministradorLista todas as tecnologias e seus criadores de conteúdo responsáveis
+DELETE | 9. `/technologies/:technology_id` | Administrador | Deleta a tecnologia informada na rota e a relação com todos os usuários
+GET | 10. `/user/technologies` | Criador de conteúdo, estudante | Lista todas as tecnologias que fazem relação com o usuário
+POST | 11. `/technologies/:technology_id` | Criador de conteúdo | Cria um tópico que faz relação à tecnologia informada na rota
+GET | 12. `/technologies/:technology_id/topics` | Criador de conteúdo, estudante | Lista todos os tópicos que fazem relação à tecnologia informada na rota
+PUT | 13. `/topics/:topic_id` | Criador de conteúdo | Atualiza o tópico informado na rota
+DELETE | 14. `/topics/:topic_id` | Criador de conteúdo | Deleta o tópico informado na rota
+GET | 15. `/technologies/topics/:topic_id/levels` | Criador de conteúdo | Lista todos os níveis que fazem relação ao tópico informado na rota, incluindo a listagem de todos os exercícios por nível
+POST | 16. `/technologies/topics/levels/`<br>`:level_id/alternative-exercise` | Criador de conteúdo | Cria um exercício de alternativas que faz relação ao nível informado na rota
+POST | 17. `/technologies/topics/levels/`<br>`:level_id/sequency-exercise` | Criador de conteúdo | Cria um exercício de sequência que faz relação ao nível informado na rota
+DELETE | 18. `/exercises/:exercise_id` | Criador de conteúdo | Deleta o exercício informado na rota
+GET | 19. `/technologies` | Estudante | Lista todas as tecnologias
+POST | 20. `/students-technologies/:technology_id` | Estudante | Cria a relação do estudante com a tecnologia informada na rota e define sua camada atual como 1
+GET | 21. `/technologies/:technology_id/test` | Estudante | Retorna os exercícios do teste da tecnologia informada na rota
+PATCH | 22. `/students-technologies/`<br>`:technology_id/:currentExercise.layer` | Estudante | Atualiza a camada atual do estudante na tecnologia informada na rota conforme seu desempenho no teste
+GET | 23. `/students-technologies/:technology_id` | Estudante | Retorna a camada atual e as coroas do estudante em relação à tecnologia informada na rota. Além disso retorna as coroas totais da tecnologia
+GET | 24. `/technologies/topics/`<br>`:topic_id/:difficulty` | Estudante | Retorna todos os exercícios do nível cuja dificuldade é passada na e que é relacionado ao tópico informado
+POST | 25. `/students-topics/:topic_id` | Estudante | Cria a relação do estudante com o tópico informado na rota e define sua dificuldade atual como 1
+PATCH | 26. `/students-topics/:topic_id` | Estudante | Atualiza a dificuldade atual do estudante em relação ao tópico informado na rota conforme seu desempenho ao realizar exercícios de algum nível
 
 
 
