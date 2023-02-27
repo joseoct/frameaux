@@ -88,10 +88,6 @@ através de chamadas às rotas, que são associações entre um método HTTP, um
 URL e um método de um controlador responsável por processar a requisição e gerar
 uma resposta às aplicações clientes.
 
-table {
-    width:100%;
-}
-
 #### Rotas do backend
 Tipo | Rota | Cargos | Descrição
 --- | --- | --- | --- 
@@ -120,19 +116,3 @@ GET | 23. `/students-technologies/:technology_id` | Estudante | Retorna a camada
 GET | 24. `/technologies/topics/`<br>`:topic_id/:difficulty` | Estudante | Retorna todos os exercícios do nível cuja dificuldade é passada na e que é relacionado ao tópico informado
 POST | 25. `/students-topics/:topic_id` | Estudante | Cria a relação do estudante com o tópico informado na rota e define sua dificuldade atual como 1
 PATCH | 26. `/students-topics/:topic_id` | Estudante | Atualiza a dificuldade atual do estudante em relação ao tópico informado na rota conforme seu desempenho ao realizar exercícios de algum nível
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
