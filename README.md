@@ -6,6 +6,7 @@
 Meu trabalho de conclusão de curso para obter o diploma de bacharel em ciência da computação: <strong>Aplicativo para auxiliar o aprendizado de tecnologias multiplataforma(ReactNative, Flutter, Ionic) para o desenvolvimento de dispositivos móveis</strong> utilizando a metodologia de repetição espaçada e inspirado no aplicativo Duolingo.
 </p>
 
+#### _Veja também: [mobile](https://github.com/joseoct/frameaux-mobile) & [frontend](https://github.com/joseoct/frameaux-web) da plataforma_
 ## Backend
 Aplicação responsável por servir dados para as aplicações web e móvel. 
 
