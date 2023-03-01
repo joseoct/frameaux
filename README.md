@@ -115,3 +115,5 @@ GET | 23. `/students-technologies/:technology_id` | Estudante | Retorna a camada
 GET | 24. `/technologies/topics/`<br>`:topic_id/:difficulty` | Estudante | Retorna todos os exercícios do nível cuja dificuldade é passada na e que é relacionado ao tópico informado
 POST | 25. `/students-topics/:topic_id` | Estudante | Cria a relação do estudante com o tópico informado na rota e define sua dificuldade atual como 1
 PATCH | 26. `/students-topics/:topic_id` | Estudante | Atualiza a dificuldade atual do estudante em relação ao tópico informado na rota conforme seu desempenho ao realizar exercícios de algum nível
+
+[Link](https://drive.google.com/file/d/1wNvaCHskW_Ky1QivsNj1tYBnb6Hm9ljS/view) para conferir o trabalho completo.
