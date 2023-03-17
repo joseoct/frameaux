@@ -97,7 +97,8 @@ GET | 3. `/content-creators` | Administrador | Lista criadores de conteúdoe tec
 POST | 4. `/students` | - | Cria um estudante
 GET | 5. `/profile` | Administrador, criador de conteúdo, estudante | Retorna informações do usuário, incluindo seu cargo
 POST | 6. `/sessions` | Administrador, criador de conteúdo, estudante | Envia as credenciais de conexão, se forem validadas, retorna informações do usuário e um JWT válido
-POST | 7. `/content-creators-technologies` | Administrador | Cria uma tecnologia e aloca criadores de conteúdo à tecnologia criadaGET8. /content-creators-technologiesAdministradorLista todas as tecnologias e seus criadores de conteúdo responsáveis
+POST | 7. `/content-creators-technologies` | Administrador | Cria uma tecnologia e aloca criadores de conteúdo à tecnologia criada
+GET | 8. `/content-creators-technologies` | Administrador | Lista todas as tecnologias e seus criadores de conteúdo responsáveis
 DELETE | 9. `/technologies/:technology_id` | Administrador | Deleta a tecnologia informada na rota e a relação com todos os usuários
 GET | 10. `/user/technologies` | Criador de conteúdo, estudante | Lista todas as tecnologias que fazem relação com o usuário
 POST | 11. `/technologies/:technology_id` | Criador de conteúdo | Cria um tópico que faz relação à tecnologia informada na rota
