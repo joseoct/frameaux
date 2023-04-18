@@ -114,7 +114,7 @@ POST | 20. `/students-technologies/:technology_id` | Estudante | Cria a relaçã
 GET | 21. `/technologies/:technology_id/test` | Estudante | Retorna os exercícios do teste da tecnologia informada na rota
 PATCH | 22. `/students-technologies/`<br>`:technology_id/:currentExercise.layer` | Estudante | Atualiza a camada atual do estudante na tecnologia informada na rota conforme seu desempenho no teste
 GET | 23. `/students-technologies/:technology_id` | Estudante | Retorna a camada atual e as coroas do estudante em relação à tecnologia informada na rota. Além disso retorna as coroas totais da tecnologia
-GET | 24. `/technologies/topics/`<br>`:topic_id/:difficulty` | Estudante | Retorna todos os exercícios do nível cuja dificuldade é passada na e que é relacionado ao tópico informado
+GET | 24. `/technologies/topics/`<br>`:topic_id/:difficulty` | Estudante | Retorna todos os exercícios do nível cuja dificuldade é passada na rota e que é relacionado ao tópico informado
 POST | 25. `/students-topics/:topic_id` | Estudante | Cria a relação do estudante com o tópico informado na rota e define sua dificuldade atual como 1
 PATCH | 26. `/students-topics/:topic_id` | Estudante | Atualiza a dificuldade atual do estudante em relação ao tópico informado na rota conforme seu desempenho ao realizar exercícios de algum nível
 
